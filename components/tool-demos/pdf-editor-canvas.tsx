@@ -12,6 +12,7 @@ export interface Annotation {
   width?: number; // PDF Point units
   height?: number; // PDF Point units
   text?: string;
+  fontSize?: number;
   points?: number[]; // PDF Point coordinates
   color?: string;
   image?: HTMLImageElement; // For display
@@ -97,6 +98,8 @@ export default function PdfEditorCanvas({
     });
   };
 
+  const selectedAnn = annotations.find(a => a.id === selectedId);
+
   return (
     <Stage
       width={width}
@@ -111,7 +114,11 @@ export default function PdfEditorCanvas({
       }}
       onMouseMove={onMouseMove}
       onMouseUp={onMouseUp}
-      className={tool !== 'move' ? 'cursor-crosshair' : 'cursor-default'}
+      className={
+        tool === 'text' ? 'cursor-text' :
+        tool !== 'move' ? 'cursor-crosshair' : 
+        'cursor-default'
+      }
     >
       <Layer scaleX={scale} scaleY={scale}>
         {(drawingAnnotation ? [...annotations, drawingAnnotation] : annotations).map((ann) => {
@@ -151,20 +158,24 @@ export default function PdfEditorCanvas({
                 x={ann.x}
                 y={ann.y}
                 text={ann.text}
-                fontSize={16}
+                fontSize={ann.fontSize || 16}
                 fill={ann.color}
+                width={ann.width}
                 rotation={ann.rotation}
                 onTransformEnd={(e) => {
                    const node = e.target;
-                   // Text scaling is different, usually we just update scale or fontSize
-                   // For simplicity let's just update scale for now or rotation
+                   const scaleX = node.scaleX();
+                   
+                   // Update font size based on scale
+                   const newFontSize = Math.round((ann.fontSize || 16) * scaleX);
+                   
                    onChange({
                       ...ann,
                       x: node.x(),
                       y: node.y(),
                       rotation: node.rotation(),
-                      // Text scaling logic is tricky, usually involves fontSize. 
-                      // Let's stick to simple move/rotate for text for now
+                      fontSize: newFontSize,
+                      width: node.width() * scaleX,
                    });
                    // Reset scale
                    node.scaleX(1);
@@ -180,8 +191,8 @@ export default function PdfEditorCanvas({
                 y={ann.y}
                 width={ann.width}
                 height={ann.height}
-                fill={ann.type === 'redact' ? 'black' : 'transparent'}
-                stroke={ann.type === 'redact' ? 'none' : 'red'}
+                fill={ann.type === 'redact' ? '#000000' : 'transparent'}
+                stroke={ann.type === 'redact' ? 'none' : '#64748b'}
                 strokeWidth={2}
                 rotation={ann.rotation}
                 onTransformEnd={(e) => handleTransformEnd(e, ann)}
@@ -204,9 +215,11 @@ export default function PdfEditorCanvas({
           return null;
         })}
         
-        {selectedId && tool === 'move' && (
+        {selectedId && tool === 'move' && selectedAnn?.type !== 'line' && (
            <Transformer
              ref={trRef}
+             keepRatio={selectedAnn?.type === 'text'}
+             enabledAnchors={selectedAnn?.type === 'text' ? ['top-left', 'top-right', 'bottom-left', 'bottom-right'] : undefined}
              boundBoxFunc={(oldBox, newBox) => {
                // limit resize
                if (newBox.width < 5 || newBox.height < 5) {

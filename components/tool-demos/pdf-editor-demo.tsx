@@ -2,6 +2,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import dynamic from 'next/dynamic';
+import { useToast } from '@/hooks/use-toast';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { 
@@ -9,8 +10,14 @@ import {
   Type, Pen, Square, Image as ImageIcon, 
   ChevronLeft, ChevronRight,
   Move, Ban, Trash2,
-  Save, Loader2
+  Save, Loader2, Undo, Redo, Palette, MousePointer2, AlertCircle
 } from 'lucide-react';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import PdfThumbnail from './pdf-thumbnail';
 // import * as pdfjsLib from 'pdfjs-dist'; // Removed top-level import to fix DOMMatrix error
 import { PDFDocument, rgb, StandardFonts } from 'pdf-lib';
@@ -24,7 +31,17 @@ const PdfEditorCanvas = dynamic(() => import('./pdf-editor-canvas'), {
   loading: () => <div className="w-full h-full flex items-center justify-center bg-muted/20">Loading Editor...</div>
 });
 
+const hexToRgb = (hex: string) => {
+  const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+  return result ? rgb(
+    parseInt(result[1], 16) / 255,
+    parseInt(result[2], 16) / 255,
+    parseInt(result[3], 16) / 255
+  ) : rgb(0, 0, 0);
+}
+
 export function PdfEditorDemo() {
+  const { toast } = useToast();
   const [file, setFile] = useState<File | null>(null);
   const [pdfDoc, setPdfDoc] = useState<PDFDocumentProxy | null>(null);
   const [numPages, setNumPages] = useState<number>(0);
@@ -38,6 +55,10 @@ export function PdfEditorDemo() {
   const [isExporting, setIsExporting] = useState<boolean>(false);
   
   const [selectedId, setSelectedId] = useState<string | null>(null);
+  
+  // History for Undo/Redo
+  const [history, setHistory] = useState<Annotation[][]>([]);
+  const [historyStep, setHistoryStep] = useState<number>(-1);
 
   // Canvas refs
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -60,6 +81,33 @@ export function PdfEditorDemo() {
     initPdf();
   }, []);
 
+  const addToHistory = (newAnnotations: Annotation[]) => {
+    const newHistory = history.slice(0, historyStep + 1);
+    newHistory.push(newAnnotations);
+    setHistory(newHistory);
+    setHistoryStep(newHistory.length - 1);
+  };
+
+  const undo = () => {
+    if (historyStep >= 0) {
+      const newStep = historyStep - 1;
+      if (newStep >= 0) {
+        setAnnotations(history[newStep]);
+      } else {
+        setAnnotations([]);
+      }
+      setHistoryStep(newStep);
+    }
+  };
+
+  const redo = () => {
+    if (historyStep < history.length - 1) {
+      const newStep = historyStep + 1;
+      setAnnotations(history[newStep]);
+      setHistoryStep(newStep);
+    }
+  };
+
   const resetEditor = () => {
     setFile(null);
     setPdfDoc(null);
@@ -72,6 +120,8 @@ export function PdfEditorDemo() {
     isDrawing.current = false;
     setSelectedId(null);
     startPos.current = null;
+    setHistory([]);
+    setHistoryStep(-1);
   };
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -95,6 +145,21 @@ export function PdfEditorDemo() {
     }
   };
 
+  // Update Page Size immediately when page changes (fixes Zoom jitter)
+  useEffect(() => {
+      if (!pdfDoc) return;
+      const updateSize = async () => {
+          try {
+            const page = await pdfDoc.getPage(currentPage);
+            const viewport = page.getViewport({ scale: 1.0 }); // Unscaled
+            setPageSize({ width: viewport.width, height: viewport.height });
+          } catch (e) {
+            console.error("Error getting page size:", e);
+          }
+      };
+      updateSize();
+  }, [pdfDoc, currentPage]);
+
   // Render PDF Page
   useEffect(() => {
     if (!pdfDoc || !canvasRef.current) return;
@@ -114,12 +179,8 @@ export function PdfEditorDemo() {
         canvas.height = viewport.height;
         canvas.width = viewport.width;
         
-        // Update page size state for Stage sync
-        setPageSize({
-            width: viewport.width / scale, // Store unscaled width
-            height: viewport.height / scale // Store unscaled height
-        });
-
+        // Page size is already set in the other effect, but we can verify
+        
         const renderContext = {
           canvasContext: context,
           viewport: viewport,
@@ -162,7 +223,7 @@ export function PdfEditorDemo() {
         x: 0,
         y: 0,
         points: [pdfX, pdfY], // Store unscaled points
-        color: '#ef4444', // Red color
+        color: '#000000', // Default black
       };
       setDrawingAnnotation(newLine);
     } else if (tool === 'text') {
@@ -173,11 +234,12 @@ export function PdfEditorDemo() {
         page: currentPage,
         x: pdfX,
         y: pdfY,
-        text: "Double click to edit",
+        text: "Select to edit",
         color: '#000000',
         width: 200, // Default width
       };
       setAnnotations([...annotations, newText]);
+      addToHistory([...annotations, newText]);
       setTool('move');
       setSelectedId(newText.id);
     } else if (tool === 'rect' || tool === 'redact') {
@@ -239,7 +301,9 @@ export function PdfEditorDemo() {
 
   const handleMouseUp = () => {
     if (isDrawing.current && drawingAnnotation) {
-        setAnnotations(prev => [...prev, drawingAnnotation]);
+        const newAnns = [...annotations, drawingAnnotation];
+        setAnnotations(newAnns);
+        addToHistory(newAnns);
         
         if (tool === 'rect' || tool === 'redact') {
              // Auto switch to move tool after creating shape and select it
@@ -253,7 +317,9 @@ export function PdfEditorDemo() {
   };
 
   const handleAnnotationChange = (newAttrs: Annotation) => {
-     setAnnotations(prev => prev.map(a => a.id === newAttrs.id ? newAttrs : a));
+     const newAnns = annotations.map(a => a.id === newAttrs.id ? newAttrs : a);
+     setAnnotations(newAnns);
+     addToHistory(newAnns);
   };
 
 
@@ -286,7 +352,9 @@ export function PdfEditorDemo() {
               width: 200,
               height: 200 * (imgObj.height / imgObj.width),
             };
-            setAnnotations([...annotations, newImage]);
+            const newAnns = [...annotations, newImage];
+            setAnnotations(newAnns);
+            addToHistory(newAnns);
             setTool('move');
           };
           bufferReader.readAsArrayBuffer(file);
@@ -297,12 +365,16 @@ export function PdfEditorDemo() {
   };
 
   const handleDeleteAnnotation = (id: string) => {
-    setAnnotations(annotations.filter(a => a.id !== id));
+    const newAnns = annotations.filter(a => a.id !== id);
+    setAnnotations(newAnns);
+    addToHistory(newAnns);
+    setSelectedId(null);
   };
 
   const handleExport = async () => {
     if (!file) return;
 
+    setIsExporting(true);
     try {
       const existingPdfBytes = await file.arrayBuffer();
       const pdfDocLib = await PDFDocument.load(existingPdfBytes);
@@ -318,13 +390,13 @@ export function PdfEditorDemo() {
         // PDF-lib uses bottom-left origin, so flip Y
         
         if (ann.type === 'text' && ann.text) {
-          const size = 16;
+          const size = ann.fontSize || 16;
           page.drawText(ann.text, {
             x: ann.x,
             y: height - ann.y - size, // Adjust for top-left visual origin
             size: size,
             font: helveticaFont,
-            color: rgb(0, 0, 0),
+            color: hexToRgb(ann.color || '#000000'),
           });
         } else if (ann.type === 'line' && ann.points) {
            for (let i = 0; i < ann.points.length - 2; i += 2) {
@@ -337,7 +409,7 @@ export function PdfEditorDemo() {
                start: { x: x1, y: y1 },
                end: { x: x2, y: y2 },
                thickness: 2,
-               color: rgb(0.94, 0.27, 0.27), // Red
+               color: ann.color ? hexToRgb(ann.color) : rgb(0.94, 0.27, 0.27),
              });
            }
         } else if (ann.type === 'rect' || ann.type === 'redact') {
@@ -375,10 +447,21 @@ export function PdfEditorDemo() {
       link.href = URL.createObjectURL(blob);
       link.download = 'edited_document.pdf';
       link.click();
+      
+      toast({
+        title: "Export Successful",
+        description: "Your edited PDF has been downloaded.",
+      });
 
     } catch (error) {
       console.error("Error exporting PDF:", error);
-      alert("Failed to export PDF. See console for details.");
+      toast({
+        title: "Export Failed",
+        description: "There was an error exporting your PDF.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsExporting(false);
     }
   };
 
@@ -389,49 +472,110 @@ export function PdfEditorDemo() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         
         {/* Toolbar */}
-        <div className="mb-6 flex flex-wrap items-center justify-between gap-4 p-4 bg-background rounded-xl border border-border shadow-sm">
-          <div className="flex items-center gap-2">
-            {!file ? (
-               <div className="relative">
-                <Input 
-                  type="file" 
-                  accept=".pdf" 
-                  onChange={handleFileChange} 
-                  className="hidden" 
-                  id="pdf-upload"
-                />
-                <Button asChild>
-                  <label htmlFor="pdf-upload" className="cursor-pointer flex items-center gap-2">
-                    <Upload className="w-4 h-4" />
-                    Upload PDF
-                  </label>
-                </Button>
-              </div>
-            ) : (
-              <Button variant="outline" onClick={resetEditor}>
-                Change File
-              </Button>
-            )}
-          </div>
+        <TooltipProvider>
+        <div className="mb-6 flex flex-col lg:flex-row flex-wrap items-center justify-between gap-4 p-2 bg-background rounded-xl border border-border shadow-sm sticky top-0 z-10">
+          <div className="flex flex-wrap items-center gap-2">
+            {/* Group 1: File & History */}
+            <div className="flex items-center gap-1 pr-2 border-r border-border">
+                {!file ? (
+                   <div className="relative">
+                    <Input 
+                      type="file" 
+                      accept=".pdf" 
+                      onChange={handleFileChange} 
+                      className="hidden" 
+                      id="pdf-upload"
+                    />
+                    <Button asChild size="sm">
+                      <label htmlFor="pdf-upload" className="cursor-pointer flex items-center gap-2">
+                        <Upload className="w-4 h-4" />
+                        <span className="hidden sm:inline">Upload</span>
+                      </label>
+                    </Button>
+                  </div>
+                ) : (
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Button variant="ghost" size="icon" onClick={resetEditor}>
+                         <Upload className="w-4 h-4" />
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent>Open New File</TooltipContent>
+                  </Tooltip>
+                )}
 
-          {file && (
-            <>
-              <div className="flex items-center gap-1 border-l border-r border-border px-4 mx-2 overflow-x-auto">
-                <Button variant={tool === 'move' ? 'default' : 'ghost'} size="icon" onClick={() => setTool('move')} title="Move / Select">
-                  <Move className="w-4 h-4" />
-                </Button>
-                <Button variant={tool === 'text' ? 'default' : 'ghost'} size="icon" onClick={() => setTool('text')} title="Add Text">
-                  <Type className="w-4 h-4" />
-                </Button>
-                <Button variant={tool === 'draw' ? 'default' : 'ghost'} size="icon" onClick={() => setTool('draw')} title="Draw">
-                  <Pen className="w-4 h-4" />
-                </Button>
-                 <Button variant={tool === 'rect' ? 'default' : 'ghost'} size="icon" onClick={() => setTool('rect')} title="Add Rectangle">
-                  <Square className="w-4 h-4" />
-                </Button>
-                 <Button variant={tool === 'redact' ? 'default' : 'ghost'} size="icon" onClick={() => setTool('redact')} title="Visual Redaction (Black Box)">
-                  <Ban className="w-4 h-4" />
-                </Button>
+                <Tooltip>
+                    <TooltipTrigger asChild>
+                        <Button variant="ghost" size="icon" onClick={undo} disabled={historyStep < 0}>
+                            <Undo className="w-4 h-4" />
+                        </Button>
+                    </TooltipTrigger>
+                    <TooltipContent>Undo</TooltipContent>
+                </Tooltip>
+
+                <Tooltip>
+                    <TooltipTrigger asChild>
+                        <Button variant="ghost" size="icon" onClick={redo} disabled={historyStep >= history.length - 1}>
+                            <Redo className="w-4 h-4" />
+                        </Button>
+                    </TooltipTrigger>
+                    <TooltipContent>Redo</TooltipContent>
+                </Tooltip>
+            </div>
+
+            {/* Group 2: Tools */}
+            {file && (
+            <div className="flex items-center gap-1 pr-2 border-r border-border">
+                <Tooltip>
+                    <TooltipTrigger asChild>
+                        <Button variant={tool === 'move' ? 'secondary' : 'ghost'} size="icon" onClick={() => setTool('move')}>
+                            <Move className="w-4 h-4" />
+                        </Button>
+                    </TooltipTrigger>
+                    <TooltipContent>Select / Move</TooltipContent>
+                </Tooltip>
+
+                <Tooltip>
+                    <TooltipTrigger asChild>
+                        <Button variant={tool === 'text' ? 'secondary' : 'ghost'} size="icon" onClick={() => setTool('text')}>
+                            <Type className="w-4 h-4" />
+                        </Button>
+                    </TooltipTrigger>
+                    <TooltipContent>Add Text</TooltipContent>
+                </Tooltip>
+
+                <Tooltip>
+                    <TooltipTrigger asChild>
+                        <Button variant={tool === 'draw' ? 'secondary' : 'ghost'} size="icon" onClick={() => setTool('draw')}>
+                            <Pen className="w-4 h-4" />
+                        </Button>
+                    </TooltipTrigger>
+                    <TooltipContent>Freehand Draw</TooltipContent>
+                </Tooltip>
+
+                 <Tooltip>
+                    <TooltipTrigger asChild>
+                        <Button variant={tool === 'rect' ? 'secondary' : 'ghost'} size="icon" onClick={() => setTool('rect')}>
+                            <Square className="w-4 h-4" />
+                        </Button>
+                    </TooltipTrigger>
+                    <TooltipContent>Rectangle</TooltipContent>
+                </Tooltip>
+
+                 <Tooltip>
+                    <TooltipTrigger asChild>
+                        <Button variant={tool === 'redact' ? 'destructive' : 'ghost'} size="icon" onClick={() => setTool('redact')}>
+                            <Ban className="w-4 h-4" />
+                        </Button>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                        <div className="text-center">
+                            <p className="font-bold">Visual Redaction</p>
+                            <p className="text-xs max-w-[150px]">Draws a black box. Note: Underlying text may still be searchable/selectable.</p>
+                        </div>
+                    </TooltipContent>
+                </Tooltip>
+
                 <div className="relative">
                     <Input 
                         type="file" 
@@ -440,42 +584,94 @@ export function PdfEditorDemo() {
                         ref={imageInputRef}
                         onChange={handleImageUpload}
                     />
-                    <Button variant="ghost" size="icon" onClick={() => imageInputRef.current?.click()} title="Add Image">
-                        <ImageIcon className="w-4 h-4" />
-                    </Button>
+                    <Tooltip>
+                        <TooltipTrigger asChild>
+                            <Button variant="ghost" size="icon" onClick={() => imageInputRef.current?.click()}>
+                                <ImageIcon className="w-4 h-4" />
+                            </Button>
+                        </TooltipTrigger>
+                        <TooltipContent>Add Image</TooltipContent>
+                    </Tooltip>
                 </div>
-                <Button variant={selectedId && annotations.find(a => a.id === selectedId) ? 'destructive' : 'ghost'} size="icon" 
-                  onClick={() => selectedId && handleDeleteAnnotation(selectedId)} 
-                  disabled={!selectedId}
-                  title="Delete Selected"
-                >
-                  <Trash2 className="w-4 h-4" />
+            </div>
+            )}
+
+            {/* Group 3: Selection Properties */}
+            {selectedId && (
+                <div className="flex items-center gap-2 animate-in fade-in zoom-in-95 duration-200">
+                    {annotations.find(a => a.id === selectedId)?.type === 'text' && (
+                        <>
+                             <Input 
+                                value={annotations.find(a => a.id === selectedId)?.text || ''} 
+                                onChange={(e) => {
+                                    const newAnns = annotations.map(a => a.id === selectedId ? { ...a, text: e.target.value } : a);
+                                    setAnnotations(newAnns);
+                                }}
+                                onBlur={() => addToHistory(annotations)}
+                                className="w-32 h-8 text-sm"
+                                placeholder="Edit text..."
+                            />
+                            
+                            <div className="flex items-center gap-1">
+                                <span className="text-xs text-muted-foreground">Size</span>
+                                <Input 
+                                    type="number"
+                                    value={annotations.find(a => a.id === selectedId)?.fontSize || 16}
+                                    onChange={(e) => {
+                                        const val = parseInt(e.target.value) || 16;
+                                        const newAnns = annotations.map(a => a.id === selectedId ? { ...a, fontSize: val } : a);
+                                        setAnnotations(newAnns);
+                                        addToHistory(newAnns);
+                                    }}
+                                    className="w-16 h-8 text-sm"
+                                    min={8}
+                                    max={72}
+                                />
+                            </div>
+
+                             <div className="flex items-center gap-1">
+                                <div className="relative w-8 h-8 rounded-md border border-input overflow-hidden cursor-pointer">
+                                    <input 
+                                        type="color"
+                                        value={annotations.find(a => a.id === selectedId)?.color || '#000000'}
+                                        onChange={(e) => {
+                                            const newAnns = annotations.map(a => a.id === selectedId ? { ...a, color: e.target.value } : a);
+                                            setAnnotations(newAnns);
+                                            addToHistory(newAnns);
+                                        }}
+                                        className="absolute -top-2 -left-2 w-16 h-16 p-0 border-0 cursor-pointer"
+                                    />
+                                </div>
+                            </div>
+                        </>
+                    )}
+
+                    <Tooltip>
+                        <TooltipTrigger asChild>
+                            <Button variant="destructive" size="icon" onClick={() => handleDeleteAnnotation(selectedId)}>
+                                <Trash2 className="w-4 h-4" />
+                            </Button>
+                        </TooltipTrigger>
+                        <TooltipContent>Delete Selected</TooltipContent>
+                    </Tooltip>
+                </div>
+            )}
+          </div>
+
+          {/* Right Group: Zoom & Export */}
+          {file && (
+          <div className="flex items-center gap-2">
+              <div className="flex items-center gap-1 border border-input rounded-lg bg-background p-0.5">
+                <Button variant="ghost" size="icon" className="h-7 w-7" onClick={() => setScale(s => Math.max(0.5, s - 0.1))}>
+                  <ZoomOut className="w-3 h-3" />
                 </Button>
-                
-                {selectedId && annotations.find(a => a.id === selectedId)?.type === 'text' && (
-                    <Input 
-                        value={annotations.find(a => a.id === selectedId)?.text || ''} 
-                        onChange={(e) => {
-                            const ann = annotations.find(a => a.id === selectedId);
-                            if (ann) handleAnnotationChange({ ...ann, text: e.target.value });
-                        }}
-                        className="w-40 h-8 ml-2"
-                        placeholder="Edit text..."
-                    />
-                )}
+                <span className="text-xs font-medium w-8 text-center">{Math.round(scale * 100)}%</span>
+                <Button variant="ghost" size="icon" className="h-7 w-7" onClick={() => setScale(s => Math.min(2.0, s + 0.1))}>
+                  <ZoomIn className="w-3 h-3" />
+                </Button>
               </div>
 
-              <div className="flex items-center gap-2">
-                <Button variant="ghost" size="icon" onClick={() => setScale(s => Math.max(0.5, s - 0.1))}>
-                  <ZoomOut className="w-4 h-4" />
-                </Button>
-                <span className="text-sm font-medium w-12 text-center">{Math.round(scale * 100)}%</span>
-                <Button variant="ghost" size="icon" onClick={() => setScale(s => Math.min(2.0, s + 0.1))}>
-                  <ZoomIn className="w-4 h-4" />
-                </Button>
-              </div>
-
-               <div className="flex items-center gap-2 border-l border-border pl-4">
+               <div className="flex items-center gap-1 mx-2">
                  <Button variant="ghost" size="icon" disabled={currentPage <= 1} onClick={() => setCurrentPage(p => p - 1)}>
                    <ChevronLeft className="w-4 h-4" />
                  </Button>
@@ -485,18 +681,36 @@ export function PdfEditorDemo() {
                  </Button>
                </div>
 
-              <Button className="ml-auto bg-primary text-primary-foreground" onClick={handleExport}>
-                <Download className="w-4 h-4 mr-2" />
-                Export
+              <Button size="sm" onClick={handleExport} disabled={isExporting}>
+                {isExporting ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Download className="w-4 h-4 mr-2" />}
+                {isExporting ? 'Exporting...' : 'Export PDF'}
               </Button>
-            </>
-          )}
+          </div>
+          )}</div>
         </div>
+        </TooltipProvider>
 
         {/* Editor Area */}
-        <div className="relative min-h-[600px] bg-muted/50 rounded-xl border border-border overflow-auto flex justify-center items-start p-8">
+        <div className="flex gap-6 h-[800px]">
+           {/* Sidebar Thumbnails */}
+           {file && pdfDoc && (
+              <div className="w-48 flex-shrink-0 bg-background border border-border rounded-xl overflow-y-auto p-4 flex flex-col gap-4 shadow-sm">
+                  <h3 className="font-semibold text-sm text-muted-foreground mb-2">Pages ({numPages})</h3>
+                  {Array.from({ length: numPages }, (_, i) => i + 1).map((pageNum) => (
+                      <PdfThumbnail
+                          key={pageNum}
+                          pdfDoc={pdfDoc}
+                          pageNumber={pageNum}
+                          isActive={currentPage === pageNum}
+                          onClick={() => setCurrentPage(pageNum)}
+                      />
+                  ))}
+              </div>
+           )}
+
+           <div className="flex-1 relative bg-muted/50 rounded-xl border border-border overflow-auto flex justify-center items-start p-8">
           {!file && (
-             <div className="flex flex-col items-center justify-center h-full mt-32 text-muted-foreground">
+             <div className="flex flex-col items-center justify-center h-full mt-32 text-muted-foreground w-full">
                <Upload className="w-16 h-16 mb-4 opacity-20" />
                <p className="text-xl font-medium">Upload a PDF to start editing</p>
                <p className="text-sm mt-2">Secure, client-side processing. No files uploaded to server.</p>
@@ -525,6 +739,7 @@ export function PdfEditorDemo() {
               </div>
             </div>
           )}
+        </div>
         </div>
 
       </div>
