@@ -10,7 +10,6 @@ const _geistMono = Geist_Mono({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: 'FreeHubTools - Free AI & Utility Tools Hub',
   description: 'Discover AI-powered and utility tools you can use daily. Text AI, Image AI, Audio AI, Video AI, and Productivity tools all in one place.',
-  generator: 'v0.app',
   openGraph: {
     title: 'FreeHubTools - Free Hub of Online Tools',
     description: 'AI-powered and utility tools you can use daily',

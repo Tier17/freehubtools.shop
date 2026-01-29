@@ -5,15 +5,15 @@ import { Button } from '@/components/ui/button';
 
 export function HomeHero() {
   return (
-    <section className="relative overflow-hidden py-20 sm:py-32 lg:py-40 border-b border-border/40 bg-gradient-to-br from-background via-background to-accent/10">
+    <section className="relative overflow-hidden py-20 sm:py-32 lg:py-40 border-b border-border/40 bg-background">
       <div className="absolute inset-0 -z-10">
-        <div className="absolute -top-40 -right-40 w-96 h-96 bg-primary/20 rounded-full blur-3xl animate-float" />
-        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-accent/20 rounded-full blur-3xl animate-float" style={{ animationDelay: '2s' }} />
+        <div className="absolute -top-40 -right-40 w-96 h-96 bg-primary/20 rounded-full blur-3xl" />
+        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-primary/10 rounded-full blur-3xl" />
       </div>
       
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col items-center text-center slide-up">
-          <div className="mb-6 inline-flex gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary border border-primary/30 text-xs font-medium">
+        <div className="flex flex-col items-center text-center">
+          <div className="mb-6 inline-flex gap-2 px-3 py-1 rounded-full bg-accent/10 text-accent border border-accent/20 text-xs font-medium">
             <span>✨</span>
             <span>Free & Powerful Tools</span>
           </div>
@@ -27,7 +27,7 @@ export function HomeHero() {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4">
-            <Button size="lg" asChild className="bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-white shadow-lg hover:shadow-xl transition-all duration-300 rounded-full shadow-lg shadow-black/10 dark:shadow-black/30 hover:shadow-xl hover:shadow-black/15 dark:hover:shadow-black/40 hover:scale-105">
+            <Button size="lg" asChild className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg hover:shadow-xl transition-all duration-300 rounded-full shadow-black/10 hover:shadow-black/15 hover:scale-105">
               <Link href="#tools">
                 Browse Tools
               </Link>

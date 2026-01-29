@@ -7,25 +7,25 @@ const benefits = [
     title: 'Completely Free',
     description: 'All tools are 100% free to use without any hidden charges or subscriptions.',
     icon: '💰',
-    color: 'from-green-500 to-emerald-500',
+    color: 'from-accent to-accent/80',
   },
   {
     title: 'No Account Required',
     description: 'Start using tools instantly without creating an account or signing up.',
     icon: '⚡',
-    color: 'from-yellow-500 to-orange-500',
+    color: 'from-accent to-accent/80',
   },
   {
     title: 'AI-Powered',
     description: 'Leveraging the latest AI technology for accurate and reliable results.',
     icon: '🤖',
-    color: 'from-blue-500 to-cyan-500',
+    color: 'from-accent to-accent/80',
   },
   {
     title: 'Fast & Reliable',
     description: 'Quick processing times and consistent performance you can depend on.',
     icon: '⚙️',
-    color: 'from-purple-500 to-pink-500',
+    color: 'from-accent to-accent/80',
   },
 ];
 
@@ -33,7 +33,7 @@ export function WhySection() {
   return (
     <section id="about" className="py-16 sm:py-24 border-b border-border/40 bg-gradient-to-b from-transparent to-accent/5">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="mb-12 slide-up">
+        <div className="mb-12">
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tighter text-foreground mb-2">
             Why FreeHubTools?
           </h2>
@@ -44,7 +44,7 @@ export function WhySection() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           {benefits.map((benefit, idx) => (
-            <div key={idx} className="border border-white/20 dark:border-white/5 bg-white/80 dark:bg-white/5 backdrop-blur-sm rounded-2xl p-6 hover:shadow-xl hover:shadow-primary/20 dark:hover:shadow-primary/10 transition-all duration-500 hover:scale-105 hover:-translate-y-1 group slide-up" style={{ animationDelay: `${idx * 0.1}s` }}>
+            <div key={idx} className="border border-white/20 dark:border-white/5 bg-white/80 dark:bg-white/5 backdrop-blur-sm rounded-2xl p-6 hover:shadow-xl hover:shadow-primary/20 dark:hover:shadow-primary/10 transition-all duration-500 hover:scale-105 hover:-translate-y-1 group">
               <div className="flex gap-4">
                 <div className={`flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br ${benefit.color} flex-shrink-0 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
                   <span className="text-2xl">{benefit.icon}</span>

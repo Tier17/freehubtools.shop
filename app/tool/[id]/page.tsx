@@ -1,4 +1,5 @@
 import { ToolClient } from './tool-client';
+import { notFound } from 'next/navigation';
 
 interface ToolData {
   id: string;
@@ -35,6 +36,174 @@ interface ToolData {
 }
 
 const toolData: Record<string, ToolData> = {
+  'pdf-editor': {
+    id: 'pdf-editor',
+    name: 'PDF Editor',
+    category: 'Productivity',
+    categoryId: 'productivity',
+    description: 'Edit, sign, and annotate PDF documents directly in your browser.',
+    inputType: 'file',
+    demoPlaceholder: 'Upload a PDF to edit...',
+    features: [
+      {
+        title: 'Add Text',
+        description: 'Add new text to your PDF documents.',
+      },
+      {
+        title: 'Draw & Annotate',
+        description: 'Freehand drawing and shape tools for annotation.',
+      },
+      {
+        title: 'Visual Redaction',
+        description: 'Cover sensitive information with black boxes (visual only).',
+      },
+      {
+        title: 'Insert Images',
+        description: 'Add images to your PDF pages.',
+      },
+    ],
+    howTo: [
+      {
+        step: 1,
+        title: 'Upload PDF',
+        description: 'Select the PDF file you want to edit.',
+      },
+      {
+        step: 2,
+        title: 'Make Changes',
+        description: 'Use the toolbar to edit, sign, or annotate.',
+      },
+      {
+        step: 3,
+        title: 'Download',
+        description: 'Save your edited PDF document.',
+      },
+    ],
+    useCases: [
+      {
+        title: 'Contracts',
+        description: 'Sign and fill out legal documents.',
+      },
+      {
+        title: 'Study Notes',
+        description: 'Annotate lecture slides and textbooks.',
+      },
+      {
+        title: 'Forms',
+        description: 'Fill out application forms digitally.',
+      },
+      {
+        title: 'Collaboration',
+        description: 'Add comments and feedback to shared docs.',
+      },
+    ],
+    relatedTools: [
+      {
+        id: 'article-summarizer',
+        name: 'Article Summarizer',
+        description: 'Summarize long documents',
+        category: 'Text AI',
+      },
+    ],
+    faqs: [
+      {
+        id: 'faq1',
+        question: 'Is it secure?',
+        description: 'Yes, files are processed locally in your browser when possible.',
+        answer: 'Yes, files are processed locally in your browser when possible.',
+      },
+      {
+        id: 'faq2',
+        question: 'Can I edit scanned PDFs?',
+        description: 'Basic annotation is supported; OCR text editing is coming soon.',
+        answer: 'Basic annotation is supported; OCR text editing is coming soon.',
+      },
+    ],
+  },
+  'image-compressor': {
+    id: 'image-compressor',
+    name: 'Image Compressor',
+    category: 'Image AI',
+    categoryId: 'image-ai',
+    description: 'Compress images to reduce file size without losing quality.',
+    inputType: 'file',
+    demoPlaceholder: 'Upload images to compress...',
+    features: [
+      {
+        title: 'Lossless Compression',
+        description: 'Reduce file size while maintaining visual quality.',
+      },
+      {
+        title: 'Batch Processing',
+        description: 'Compress multiple images simultaneously.',
+      },
+      {
+        title: 'Format Support',
+        description: 'Supports JPG, PNG, WebP, and more.',
+      },
+      {
+        title: 'Comparison View',
+        description: 'Compare original vs compressed images.',
+      },
+    ],
+    howTo: [
+      {
+        step: 1,
+        title: 'Upload Images',
+        description: 'Drag and drop your images.',
+      },
+      {
+        step: 2,
+        title: 'Select Quality',
+        description: 'Choose your desired compression level.',
+      },
+      {
+        step: 3,
+        title: 'Download',
+        description: 'Save the compressed files.',
+      },
+    ],
+    useCases: [
+      {
+        title: 'Website Speed',
+        description: 'Optimize images for faster page loads.',
+      },
+      {
+        title: 'Email Attachments',
+        description: 'Shrink images to fit email size limits.',
+      },
+      {
+        title: 'Storage Space',
+        description: 'Save disk space by compressing photo libraries.',
+      },
+      {
+        title: 'SEO',
+        description: 'Improve search rankings with optimized images.',
+      },
+    ],
+    relatedTools: [
+      {
+        id: 'image-resizer',
+        name: 'Image Resizer',
+        description: 'Resize images to any dimensions',
+        category: 'Image AI',
+      },
+    ],
+    faqs: [
+      {
+        id: 'faq1',
+        question: 'How much space can I save?',
+        description: 'Typically 50-80% reduction depending on the image.',
+        answer: 'Typically 50-80% reduction depending on the image.',
+      },
+      {
+        id: 'faq2',
+        question: 'Does it affect quality?',
+        description: 'Our smart compression minimizes visible quality loss.',
+        answer: 'Our smart compression minimizes visible quality loss.',
+      },
+    ],
+  },
   'article-summarizer': {
     id: 'article-summarizer',
     name: 'Article Summarizer',
@@ -1123,15 +1292,30 @@ export function generateStaticParams() {
   }));
 }
 
-export function generateMetadata({ params }: { params: { id: string } }) {
-  const tool = toolData[params.id];
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  const tool = toolData[id];
+  
+  if (!tool) {
+    return {
+      title: 'Tool Not Found - FreeHubTools',
+      description: 'The requested tool could not be found.',
+    };
+  }
+
   return {
     title: `${tool.name} - FreeHubTools`,
     description: tool.description,
   };
 }
 
-export default function ToolPage({ params }: { params: { id: string } }) {
-  const tool = toolData[params.id];
+export default async function ToolPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  const tool = toolData[id];
+
+  if (!tool) {
+    notFound();
+  }
+
   return <ToolClient tool={tool} />;
 }

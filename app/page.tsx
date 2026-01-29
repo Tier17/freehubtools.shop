@@ -1,9 +1,9 @@
 import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
 import { HomeHero } from '@/components/home-hero';
+import { TopToolsShowcase } from '@/components/top-tools-showcase';
+import { SiteFeatures } from '@/components/site-features';
 import { CategoryGrid } from '@/components/category-grid';
-import { PopularTools } from '@/components/popular-tools';
-import { WhySection } from '@/components/why-section';
 import { HowItWorks } from '@/components/how-it-works';
 
 export default function Home() {
@@ -12,9 +12,9 @@ export default function Home() {
       <Header />
       <div className="flex-1">
         <HomeHero />
+        <TopToolsShowcase />
+        <SiteFeatures />
         <CategoryGrid />
-        <PopularTools />
-        <WhySection />
         <HowItWorks />
       </div>
       <Footer />

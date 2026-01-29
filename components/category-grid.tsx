@@ -1,92 +1,71 @@
-'use client';
+import FlowingMenu from './ui/flowing-menu';
 
-import Link from 'next/link';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { ArrowRight } from 'lucide-react';
-
-const categories = [
+const tools = [
   {
-    id: 'text-ai',
-    name: 'Text AI',
-    description: 'Summarize, paraphrase, and check grammar with AI',
-    tools: 3,
-    icon: '✍️',
-    color: 'from-blue-500 to-cyan-500',
+    link: '/tool/pdf-editor',
+    text: 'PDF Editor',
+    image: 'https://images.unsplash.com/photo-1544396821-4dd40b938ad3?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80'
   },
   {
-    id: 'image-ai',
-    name: 'Image AI',
-    description: 'Remove backgrounds, resize, and upscale images',
-    tools: 3,
-    icon: '🖼️',
-    color: 'from-purple-500 to-pink-500',
+    link: '/tool/image-compressor',
+    text: 'Image Compressor',
+    image: 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80'
   },
   {
-    id: 'audio-ai',
-    name: 'Audio AI',
-    description: 'Convert text to speech and transform audio',
-    tools: 2,
-    icon: '🎵',
-    color: 'from-green-500 to-emerald-500',
+    link: '/tool/article-summarizer',
+    text: 'Article Summarizer',
+    image: 'https://images.unsplash.com/photo-1506784983877-45594efa4cbe?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80'
   },
   {
-    id: 'video-ai',
-    name: 'Video AI',
-    description: 'Download videos and create GIFs easily',
-    tools: 2,
-    icon: '🎬',
-    color: 'from-orange-500 to-red-500',
+    link: '/tool/paraphraser',
+    text: 'Paraphraser',
+    image: 'https://images.unsplash.com/photo-1455390582262-044cdead277a?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80'
   },
   {
-    id: 'productivity',
-    name: 'Productivity',
-    description: 'Generate passwords, QR codes, and more',
-    tools: 2,
-    icon: '⚙️',
-    color: 'from-indigo-500 to-purple-500',
+    link: '/tool/grammar-checker',
+    text: 'Grammar Checker',
+    image: 'https://images.unsplash.com/photo-1456324504439-367cee3b3c32?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80'
   },
+  {
+    link: '/tool/background-remover',
+    text: 'Background Remover',
+    image: 'https://images.unsplash.com/photo-1633536726481-465c3676851d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80'
+  },
+  {
+    link: '/tool/image-resizer',
+    text: 'Image Resizer',
+    image: 'https://images.unsplash.com/photo-1542744094-24638eff58bb?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80'
+  },
+  {
+    link: '/tool/image-upscaler',
+    text: 'Image Upscaler',
+    image: 'https://images.unsplash.com/photo-1550684848-fac1c5b4e853?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80'
+  }
 ];
 
 export function CategoryGrid() {
   return (
-    <section id="categories" className="py-16 sm:py-24 border-b border-border/40 bg-gradient-to-b from-transparent to-accent/5">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="mb-12 slide-up">
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tighter text-foreground mb-2">
-            Browse by Category
-          </h2>
-          <p className="text-foreground/70 font-medium">
-            Find the perfect tool for your needs
-          </p>
+    <section id="tools" className="py-16 sm:py-24 border-b border-border/40 bg-gradient-to-b from-transparent to-primary/5">
+      <div className="w-full h-[600px]">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mb-8">
+          <div className="slide-up">
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tighter text-foreground mb-2">
+              Explore All Tools
+            </h2>
+            <p className="text-muted-foreground">
+              Discover our complete collection of powerful AI and productivity tools.
+            </p>
+          </div>
         </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
-          {categories.map((category, idx) => (
-            <Link key={category.id} href={`/category/${category.id}`} className="slide-up" style={{ animationDelay: `${idx * 0.1}s` }}>
-              <Card className="h-full border border-white/20 dark:border-white/5 bg-white/80 dark:bg-white/5 backdrop-blur-sm rounded-2xl hover:shadow-xl hover:shadow-primary/20 dark:hover:shadow-primary/10 transition-all duration-500 cursor-pointer hover:scale-105 hover:-translate-y-2 group">
-                <CardHeader>
-                  <div className="flex items-start justify-between mb-4">
-                    <div className={`text-4xl p-3 rounded-2xl bg-gradient-to-br ${category.color} opacity-90 group-hover:opacity-100 transition-all duration-300`}>
-                      {category.icon}
-                    </div>
-                    <ArrowRight className="w-5 h-5 text-primary opacity-0 group-hover:opacity-100 transition-all duration-300 transform group-hover:translate-x-1" />
-                  </div>
-                  <CardTitle className="text-lg font-semibold group-hover:text-primary transition-colors duration-300">{category.name}</CardTitle>
-                </CardHeader>
-                <CardContent className="flex flex-col justify-between h-full">
-                  <CardDescription className="line-clamp-2 mb-4 group-hover:text-foreground/80 transition-colors duration-300">
-                    {category.description}
-                  </CardDescription>
-                  <div className="flex items-center justify-between pt-3 border-t border-border/40">
-                    <span className="text-sm text-foreground/60 font-medium">
-                      {category.tools} tools
-                    </span>
-                  </div>
-                </CardContent>
-              </Card>
-            </Link>
-          ))}
-        </div>
+        
+        <FlowingMenu 
+          items={tools} 
+          textColor="#2D2A26" 
+          bgColor="transparent" 
+          marqueeBgColor="#E85D9E" 
+          marqueeTextColor="#FFFFFF"
+          borderColor="#DCD0C0"
+        />
       </div>
     </section>
   );

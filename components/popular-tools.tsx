@@ -95,28 +95,28 @@ export function PopularTools() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {tools.map((tool, idx) => (
-            <Link key={tool.id} href={`/tool/${tool.id}`} className="slide-up" style={{ animationDelay: `${idx * 0.08}s` }}>
+            <Link key={tool.id} href={`/tool/${tool.id}`}>
               <Card className="h-full border border-white/20 dark:border-white/5 bg-white/80 dark:bg-white/5 backdrop-blur-sm rounded-2xl hover:shadow-xl hover:shadow-primary/30 dark:hover:shadow-primary/20 transition-all duration-500 cursor-pointer hover:scale-105 hover:-translate-y-2 group overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 
                 <CardHeader className="relative z-10">
                   <div className="flex items-start justify-between gap-2 mb-3">
                     <CardTitle className="text-base font-semibold group-hover:text-primary transition-colors duration-300">{tool.name}</CardTitle>
-                    <div className="flex items-center gap-1 px-2 py-1 bg-yellow-100/50 dark:bg-yellow-900/20 rounded-lg">
-                      <Star className="w-3 h-3 fill-yellow-500 text-yellow-500" />
-                      <span className="text-xs font-semibold text-yellow-700 dark:text-yellow-400">{tool.rating}</span>
+                    <div className="flex items-center gap-1 px-2 py-1 bg-accent/10 rounded-lg">
+                      <Star className="w-3 h-3 fill-accent text-accent" />
+                      <span className="text-xs font-semibold text-accent">{tool.rating}</span>
                     </div>
                   </div>
                   
                   <div className="flex flex-wrap gap-2 mb-3">
                     {tool.tags.map((tag) => (
-                      <span key={tag} className="inline-flex items-center px-2 py-1 rounded-full bg-primary/15 text-primary text-xs font-medium border border-primary/30">
+                      <span key={tag} className="inline-flex items-center px-2 py-1 rounded-full bg-accent/10 text-accent text-xs font-medium border border-accent/20">
                         {tag}
                       </span>
                     ))}
                   </div>
 
-                  <Badge variant="secondary" className="w-fit text-xs bg-gradient-to-r from-primary/20 to-accent/20">
+                  <Badge variant="secondary" className="w-fit text-xs bg-primary/10 text-primary hover:bg-primary/20">
                     {tool.category}
                   </Badge>
                 </CardHeader>

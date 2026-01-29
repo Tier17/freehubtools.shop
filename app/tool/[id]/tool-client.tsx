@@ -13,6 +13,8 @@ import { GrammarCheckerHero } from '@/components/tool-heros/grammar-checker-hero
 import { TextToSpeechHero } from '@/components/tool-heros/text-to-speech-hero';
 import { ArticleSummarizerDemo } from '@/components/tool-demos/article-summarizer-demo';
 import { BackgroundRemoverDemo } from '@/components/tool-demos/background-remover-demo';
+import { PdfEditorHero } from '@/components/tool-heros/pdf-editor-hero';
+import { PdfEditorDemo } from '@/components/tool-demos/pdf-editor-demo';
 import { ToolDemo } from '@/components/tool-demo'; // Import ToolDemo component
 
 interface Feature {
@@ -73,6 +75,8 @@ function getToolHero(toolId: string) {
       return <GrammarCheckerHero />;
     case 'text-to-speech':
       return <TextToSpeechHero />;
+    case 'pdf-editor':
+      return <PdfEditorHero />;
     default:
       return null;
   }
@@ -84,6 +88,8 @@ function getToolDemo(toolId: string) {
       return <ArticleSummarizerDemo />;
     case 'background-remover':
       return <BackgroundRemoverDemo />;
+    case 'pdf-editor':
+      return <PdfEditorDemo />;
     default:
       return null;
   }
@@ -103,27 +109,23 @@ export function ToolClient({ tool }: ToolClientProps) {
 
   return (
     <>
-      {customHero ? (
-        customHero
-      ) : (
-        <div className="border-b border-border/40 py-8">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="flex items-center gap-2 text-sm text-foreground/70 mb-6">
-              <Link href="/" className="hover:text-foreground transition-colors">
-                Home
-              </Link>
-              <ChevronRight className="w-4 h-4" />
-              <Link href={`/category/${tool.categoryId}`} className="hover:text-foreground transition-colors">
-                {tool.category}
-              </Link>
-              <ChevronRight className="w-4 h-4" />
-              <span className="text-foreground">{tool.name}</span>
-            </div>
+      <div className="border-b border-border/40 py-4">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center gap-2 text-sm text-foreground/70">
+            <Link href="/" className="hover:text-foreground transition-colors">
+              Home
+            </Link>
+            <ChevronRight className="w-4 h-4" />
+            <Link href={`/category/${tool.categoryId}`} className="hover:text-foreground transition-colors">
+              {tool.category}
+            </Link>
+            <ChevronRight className="w-4 h-4" />
+            <span className="text-foreground">{tool.name}</span>
           </div>
         </div>
-      )}
+      </div>
 
-      {!customHero && (
+      {customHero ? customHero : (
         <section className="border-b border-border/40 py-12 sm:py-16">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <h1 className="text-4xl sm:text-5xl font-bold tracking-tighter text-foreground mb-4">

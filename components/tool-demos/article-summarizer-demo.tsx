@@ -21,9 +21,9 @@ export function ArticleSummarizerDemo() {
   };
 
   return (
-    <section id="demo" className="py-16 sm:py-24 bg-gradient-to-b from-transparent to-blue-500/5 border-b border-border/40">
+    <section id="demo" className="py-16 sm:py-24 bg-gradient-to-b from-transparent to-primary/5 border-b border-border/40">
       <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-        <div className="mb-8 slide-up">
+        <div className="mb-8">
           <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-2">
             Try Article Summarizer
           </h2>
@@ -32,7 +32,7 @@ export function ArticleSummarizerDemo() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 slide-up" style={{ animationDelay: '0.1s' }}>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <div className="space-y-4">
             <div className="border border-white/20 dark:border-white/5 bg-white/80 dark:bg-white/5 backdrop-blur-sm rounded-2xl p-6">
               <label className="block text-sm font-semibold text-foreground mb-3">
@@ -47,7 +47,7 @@ export function ArticleSummarizerDemo() {
               <Button
                 onClick={handleSummarize}
                 disabled={isProcessing || !input.trim()}
-                className="w-full mt-4 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
+                className="w-full mt-4 bg-primary hover:bg-primary/90 text-primary-foreground rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
               >
                 {isProcessing ? (
                   <>
@@ -73,7 +73,7 @@ export function ArticleSummarizerDemo() {
                     Summary
                   </label>
                 </div>
-                <div className="rounded-lg bg-blue-500/10 p-4 text-foreground whitespace-pre-wrap text-sm leading-relaxed">
+                <div className="rounded-lg bg-primary/10 p-4 text-foreground whitespace-pre-wrap text-sm leading-relaxed">
                   {output}
                 </div>
               </div>

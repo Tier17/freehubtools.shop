@@ -19,7 +19,7 @@ export function BackgroundRemoverDemo() {
   };
 
   return (
-    <section id="demo" className="py-16 sm:py-24 bg-gradient-to-b from-transparent to-purple-500/5 border-b border-border/40">
+    <section id="demo" className="py-16 sm:py-24 bg-gradient-to-b from-transparent to-primary/5 border-b border-border/40">
       <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
         <div className="mb-8 slide-up">
           <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-2">
@@ -30,15 +30,15 @@ export function BackgroundRemoverDemo() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 slide-up" style={{ animationDelay: '0.1s' }}>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <div
             className={`border-2 border-dashed rounded-2xl p-8 text-center transition-all duration-300 cursor-pointer ${
-              isDragActive ? 'border-purple-500 bg-purple-500/10' : 'border-border/40 hover:border-purple-500/50'
+              isDragActive ? 'border-primary bg-primary/10' : 'border-border/40 hover:border-primary/50'
             }`}
             onDragEnter={() => setIsDragActive(true)}
             onDragLeave={() => setIsDragActive(false)}
           >
-            <Upload className="w-12 h-12 text-purple-500/60 mx-auto mb-4" />
+            <Upload className="w-12 h-12 text-primary/60 mx-auto mb-4" />
             <p className="text-sm font-medium text-foreground mb-2">
               Drag image here or click to select
             </p>
@@ -47,7 +47,7 @@ export function BackgroundRemoverDemo() {
             </p>
             <Button
               variant="outline"
-              className="rounded-full border-2 border-purple-500/30 hover:bg-purple-500/5 bg-transparent"
+              className="rounded-full border-2 border-primary/30 hover:bg-primary/5 bg-transparent"
             >
               Choose Image
             </Button>
@@ -56,13 +56,13 @@ export function BackgroundRemoverDemo() {
           <div className="border border-white/20 dark:border-white/5 bg-white/80 dark:bg-white/5 backdrop-blur-sm rounded-2xl p-6">
             {!isComplete ? (
               <div className="flex flex-col items-center justify-center min-h-48">
-                <div className="w-24 h-24 rounded-full bg-purple-500/20 border-4 border-purple-500/40 flex items-center justify-center mb-4">
-                  <Sparkles className="w-10 h-10 text-purple-500 animate-pulse" />
+                <div className="w-24 h-24 rounded-full bg-primary/20 border-4 border-primary/40 flex items-center justify-center mb-4">
+                  <Sparkles className="w-10 h-10 text-primary animate-pulse" />
                 </div>
                 {!isProcessing && (
                   <Button
                     onClick={handleProcess}
-                    className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white rounded-full mt-4"
+                    className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-full mt-4"
                   >
                     {isProcessing ? 'Processing...' : 'Process Image'}
                   </Button>
@@ -75,14 +75,14 @@ export function BackgroundRemoverDemo() {
               </div>
             ) : (
               <div className="space-y-4">
-                <div className="relative w-full aspect-square rounded-lg overflow-hidden bg-gradient-to-br from-purple-500/20 to-pink-500/20">
+                <div className="relative w-full aspect-square rounded-lg overflow-hidden bg-primary/10">
                   <div className="absolute inset-0 flex items-center justify-center">
                     <span className="text-4xl">✨</span>
                   </div>
-                  <div className="absolute inset-0 bg-gradient-to-tr from-green-400/30 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-transparent" />
                 </div>
                 <div className="text-center">
-                  <p className="text-sm font-medium text-green-600 dark:text-green-400">
+                  <p className="text-sm font-medium text-primary">
                     ✓ Background removed successfully!
                   </p>
                 </div>

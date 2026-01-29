@@ -1,4 +1,5 @@
 import { CategoryClient } from './category-client';
+import { notFound } from 'next/navigation';
 import CategoryBreadcrumb from './category-breadcrumb';
 import CategoryHeader from './category-header';
 import CategoryToolsGrid from './category-tools-grid';
@@ -331,15 +332,30 @@ export function generateStaticParams() {
   }));
 }
 
-export function generateMetadata({ params }: { params: { id: string } }) {
-  const category = categoryData[params.id];
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  const category = categoryData[id];
+  
+  if (!category) {
+    return {
+      title: 'Category Not Found - FreeHubTools',
+      description: 'The requested category could not be found.',
+    };
+  }
+
   return {
     title: `${category.name} - FreeHubTools`,
     description: category.description,
   };
 }
 
-export default function CategoryPage({ params }: { params: { id: string } }) {
-  const category = categoryData[params.id];
+export default async function CategoryPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  const category = categoryData[id];
+
+  if (!category) {
+    notFound();
+  }
+
   return <CategoryClient category={category} />;
 }

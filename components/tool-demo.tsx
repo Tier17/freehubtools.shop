@@ -28,7 +28,7 @@ export function ToolDemo({ toolName, inputType, placeholder }: ToolDemoProps) {
   };
 
   return (
-    <section className="border-b border-border/40 py-16 sm:py-24">
+    <section id="demo" className="border-b border-border/40 py-16 sm:py-24">
       <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
         <div className="mb-8">
           <h2 className="text-2xl sm:text-3xl font-bold tracking-tighter text-foreground mb-2">
