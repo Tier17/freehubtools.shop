@@ -1,0 +1,54 @@
+import { Button } from '@/components/ui/button';
+import { BookOpen, Zap } from 'lucide-react';
+
+export function ArticleSummarizerHero() {
+  return (
+    <section className="relative overflow-hidden py-20 sm:py-32 border-b border-border/40 bg-gradient-to-b from-background via-background to-blue-500/5">
+      <div className="absolute inset-0 -z-10">
+        <div className="absolute -top-40 right-0 w-80 h-80 bg-blue-500/20 rounded-full blur-3xl animate-float" />
+        <div className="absolute -bottom-20 left-20 w-96 h-96 bg-cyan-500/15 rounded-full blur-3xl animate-float" style={{ animationDelay: '2s' }} />
+      </div>
+
+      <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+        <div className="slide-up text-center">
+          <div className="mb-6 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-500/15 text-blue-600 dark:text-blue-400 border border-blue-500/30 text-sm font-medium">
+            <Zap className="w-4 h-4" />
+            <span>Transform Long Articles into Key Insights</span>
+          </div>
+
+          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight bg-gradient-to-b from-foreground to-foreground/60 bg-clip-text text-transparent mb-6 text-balance">
+            Read Smarter,<br />Not Harder
+          </h1>
+
+          <p className="text-lg sm:text-xl text-foreground/70 mb-8 max-w-2xl mx-auto text-balance leading-relaxed font-medium">
+            Extract the essence of any article in seconds. Our AI-powered summarizer creates concise, accurate summaries so you can absorb key information instantly.
+          </p>
+
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+            <Button size="lg" className="bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white shadow-lg hover:shadow-xl transition-all duration-300 rounded-full" asChild>
+              <a href="#demo">Try Now</a>
+            </Button>
+            <Button size="lg" variant="outline" className="rounded-full border-2 border-blue-500/30 hover:bg-blue-500/5 transition-all duration-300 bg-transparent" asChild>
+              <a href="#features">Learn More</a>
+            </Button>
+          </div>
+
+          <div className="flex items-center justify-center gap-8 text-sm text-foreground/60 pt-8 border-t border-border/40">
+            <div className="flex items-center gap-2">
+              <BookOpen className="w-4 h-4" />
+              <span>Works with any article</span>
+            </div>
+            <div className="hidden sm:flex items-center gap-2">
+              <Zap className="w-4 h-4" />
+              <span>Instant results</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="text-lg">⚡</span>
+              <span>100% Free</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}

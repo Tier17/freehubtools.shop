@@ -1,0 +1,54 @@
+import { Button } from '@/components/ui/button';
+import { ImageIcon, Sparkles } from 'lucide-react';
+
+export function BackgroundRemoverHero() {
+  return (
+    <section className="relative overflow-hidden py-20 sm:py-32 border-b border-border/40 bg-gradient-to-b from-background via-background to-purple-500/5">
+      <div className="absolute inset-0 -z-10">
+        <div className="absolute -top-32 -left-32 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl animate-float" />
+        <div className="absolute -bottom-32 right-0 w-96 h-96 bg-pink-500/15 rounded-full blur-3xl animate-float" style={{ animationDelay: '2s' }} />
+      </div>
+
+      <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+        <div className="slide-up text-center">
+          <div className="mb-6 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-500/15 text-purple-600 dark:text-purple-400 border border-purple-500/30 text-sm font-medium">
+            <Sparkles className="w-4 h-4" />
+            <span>AI-Powered Image Editing</span>
+          </div>
+
+          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight bg-gradient-to-b from-foreground to-foreground/60 bg-clip-text text-transparent mb-6 text-balance">
+            Remove Backgrounds<br />Instantly
+          </h1>
+
+          <p className="text-lg sm:text-xl text-foreground/70 mb-8 max-w-2xl mx-auto text-balance leading-relaxed font-medium">
+            Professional background removal without complex tools. Our advanced AI perfectly isolates your subject, giving you clean, transparent backgrounds.
+          </p>
+
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+            <Button size="lg" className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white shadow-lg hover:shadow-xl transition-all duration-300 rounded-full" asChild>
+              <a href="#demo">Upload Image</a>
+            </Button>
+            <Button size="lg" variant="outline" className="rounded-full border-2 border-purple-500/30 hover:bg-purple-500/5 transition-all duration-300 bg-transparent" asChild>
+              <a href="#features">See Examples</a>
+            </Button>
+          </div>
+
+          <div className="flex items-center justify-center gap-8 text-sm text-foreground/60 pt-8 border-t border-border/40">
+            <div className="flex items-center gap-2">
+              <ImageIcon className="w-4 h-4" />
+              <span>All image types</span>
+            </div>
+            <div className="hidden sm:flex items-center gap-2">
+              <Sparkles className="w-4 h-4" />
+              <span>One-click magic</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="text-lg">✨</span>
+              <span>Pristine quality</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
