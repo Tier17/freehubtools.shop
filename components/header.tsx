@@ -77,7 +77,7 @@ export function Header() {
           </Link>
           
           {/* Desktop Nav */}
-          <div className="hidden md:flex">
+          <div className="hidden md:flex flex-1 justify-center">
             <NavigationMenu>
               <NavigationMenuList>
                 <NavigationMenuItem>
@@ -94,11 +94,11 @@ export function Header() {
                         </ListItem>
                       ))}
                       <li className="col-span-2 mt-2">
-                         <Link href="/#categories" legacyBehavior passHref>
-                            <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), "w-full justify-between bg-muted/50 hover:bg-muted")}>
+                         <NavigationMenuLink asChild>
+                            <Link href="/#categories" className={cn(navigationMenuTriggerStyle(), "w-full justify-between bg-muted/50 hover:bg-muted")}>
                                Explore All Categories <ChevronRight className="h-4 w-4" />
-                            </NavigationMenuLink>
-                         </Link>
+                            </Link>
+                         </NavigationMenuLink>
                       </li>
                     </ul>
                   </NavigationMenuContent>
@@ -117,28 +117,28 @@ export function Header() {
                         </ListItem>
                       ))}
                       <li className="col-span-2 mt-2">
-                         <Link href="/#featured-ai-tools" legacyBehavior passHref>
-                            <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), "w-full justify-between bg-muted/50 hover:bg-muted")}>
+                         <NavigationMenuLink asChild>
+                            <Link href="/#featured-ai-tools" className={cn(navigationMenuTriggerStyle(), "w-full justify-between bg-muted/50 hover:bg-muted")}>
                                View All Popular Tools <ChevronRight className="h-4 w-4" />
-                            </NavigationMenuLink>
-                         </Link>
+                            </Link>
+                         </NavigationMenuLink>
                       </li>
                     </ul>
                   </NavigationMenuContent>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
-                  <Link href="/blog" legacyBehavior passHref>
-                    <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                  <NavigationMenuLink asChild>
+                    <Link href="/blog" className={navigationMenuTriggerStyle()}>
                       Blog
-                    </NavigationMenuLink>
-                  </Link>
+                    </Link>
+                  </NavigationMenuLink>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
-                  <Link href="/about" legacyBehavior passHref>
-                    <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                  <NavigationMenuLink asChild>
+                    <Link href="/about" className={navigationMenuTriggerStyle()}>
                       About
-                    </NavigationMenuLink>
-                  </Link>
+                    </Link>
+                  </NavigationMenuLink>
                 </NavigationMenuItem>
               </NavigationMenuList>
             </NavigationMenu>
