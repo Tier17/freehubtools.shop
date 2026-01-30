@@ -28,7 +28,7 @@ export function ArticleSummarizerHero() {
                 Summarize Now <ArrowRight className="ml-2 w-4 h-4" />
               </Link>
             </Button>
-            <Link href="/tools" className="text-sm font-semibold leading-6 text-foreground">
+            <Link href="/#tools" className="text-sm font-semibold leading-6 text-foreground">
               View all AI tools <span aria-hidden="true">→</span>
             </Link>
           </div>

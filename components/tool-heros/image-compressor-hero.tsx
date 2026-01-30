@@ -28,7 +28,7 @@ export function ImageCompressorHero() {
                 Start Compressing <ArrowRight className="ml-2 w-4 h-4" />
               </Link>
             </Button>
-            <Link href="/tools" className="text-sm font-semibold leading-6 text-foreground">
+            <Link href="/#tools" className="text-sm font-semibold leading-6 text-foreground">
               Explore all tools <span aria-hidden="true">→</span>
             </Link>
           </div>

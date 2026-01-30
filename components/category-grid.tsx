@@ -1,4 +1,6 @@
 import FlowingMenu from './ui/flowing-menu';
+import Link from 'next/link';
+import { ArrowRight } from 'lucide-react';
 
 const tools = [
   {

@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
-import { Loader2, FileText, Copy, Check } from 'lucide-react';
+import { Loader2, FileText, Copy, CheckIcon } from 'lucide-react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 export function ArticleSummarizerDemo() {
@@ -129,7 +129,7 @@ export function ArticleSummarizerDemo() {
               <h3 className="text-xl font-semibold">Summary</h3>
               {summary && (
                 <Button variant="ghost" size="sm" onClick={copyToClipboard}>
-                  {copied ? <Check className="w-4 h-4 mr-2" /> : <Copy className="w-4 h-4 mr-2" />}
+                  {copied ? <CheckIcon className="w-4 h-4 mr-2" /> : <Copy className="w-4 h-4 mr-2" />}
                   {copied ? "Copied" : "Copy"}
                 </Button>
               )}

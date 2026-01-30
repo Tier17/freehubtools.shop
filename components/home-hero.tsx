@@ -39,12 +39,12 @@ export function HomeHero() {
             {/* CTAs */}
             <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto mb-8">
               <Button size="lg" asChild className="h-12 px-8 text-base rounded-full shadow-lg hover:shadow-primary/25 hover:scale-105 transition-all duration-300">
-                <Link href="#featured-ai-tools">
+                <Link href="#tools">
                   Browse Tools <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
               <Button variant="outline" size="lg" asChild className="h-12 px-8 text-base rounded-full border-2 hover:bg-muted/50 transition-all duration-300">
-                <Link href="#popular-tools">
+                <Link href="#trending">
                   Try Popular Tools
                 </Link>
               </Button>
