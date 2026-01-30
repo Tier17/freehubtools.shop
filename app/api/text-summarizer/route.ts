@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import OpenAI from 'openai';
 import { checkRateLimit } from '@/lib/rate-limit';
+import { checkOrigin } from '@/lib/security';
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -11,6 +12,11 @@ Summarize the provided text into a concise and clear version.
 Output strictly as a JSON object with a "summary" string field.`;
 
 export async function POST(req: Request) {
+  const originCheck = checkOrigin(req);
+  if (!originCheck.success) {
+    return originCheck.response;
+  }
+
   const rateLimit = checkRateLimit(req, 'AI');
   if (!rateLimit.success) {
     return rateLimit.response;
@@ -21,6 +27,10 @@ export async function POST(req: Request) {
 
     if (!text) {
       return NextResponse.json({ error: 'Text is required' }, { status: 400 });
+    }
+
+    if (text.length > 5000) {
+      return NextResponse.json({ error: 'Text exceeds 5000 characters' }, { status: 400 });
     }
 
     const completion = await openai.chat.completions.create({
@@ -35,7 +45,7 @@ export async function POST(req: Request) {
     const result = JSON.parse(completion.choices[0].message.content || '{"summary": ""}');
     return NextResponse.json(result);
   } catch (error) {
-    console.error('Summarization error:', error);
+    console.error('Summarization error:', error instanceof Error ? error.message : String(error));
     return NextResponse.json({ error: 'Failed to summarize text' }, { status: 500 });
   }
 }

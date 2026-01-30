@@ -12,7 +12,9 @@ const tokenCache = new LRUCache<string, number>({
 
 export function checkRateLimit(req: Request, type: RateLimitType = 'STANDARD') {
   // Get IP from headers (works with Vercel/Next.js)
-  const ip = req.headers.get('x-forwarded-for') || '127.0.0.1';
+  const forwardedFor = req.headers.get('x-forwarded-for');
+  // Parse first IP if multiple are present (common in Vercel/proxies)
+  const ip = forwardedFor ? forwardedFor.split(',')[0].trim() : '127.0.0.1';
   
   // Create a unique key based on IP and limit type to track separately if needed
   // For this requirement, we want a global limit per user for AI tools.

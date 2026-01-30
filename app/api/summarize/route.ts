@@ -1,12 +1,18 @@
 import { OpenAI } from 'openai';
 import { NextResponse } from 'next/server';
 import { checkRateLimit } from '@/lib/rate-limit';
+import { checkOrigin } from '@/lib/security';
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
 export async function POST(req: Request) {
+  const originCheck = checkOrigin(req);
+  if (!originCheck.success) {
+    return originCheck.response;
+  }
+
   const rateLimit = checkRateLimit(req, 'AI');
   if (!rateLimit.success) {
     return rateLimit.response;
@@ -15,9 +21,9 @@ export async function POST(req: Request) {
   try {
     const { text, length = 'medium', format = 'paragraph' } = await req.json();
 
-    if (!text || text.length > 10000) {
+    if (!text || text.length > 5000) {
       return NextResponse.json(
-        { error: 'Invalid text provided. Text must be between 1 and 10000 characters.' },
+        { error: 'Invalid text provided. Text must be between 1 and 5000 characters.' },
         { status: 400 }
       );
     }
@@ -42,7 +48,7 @@ export async function POST(req: Request) {
     const result = JSON.parse(completion.choices[0].message.content || '{"summary": ""}');
     return NextResponse.json(result);
   } catch (error) {
-    console.error('OpenAI API Error:', error);
+    console.error('OpenAI API Error:', error instanceof Error ? error.message : String(error));
     return NextResponse.json(
       { error: 'Failed to process request' },
       { status: 500 }
