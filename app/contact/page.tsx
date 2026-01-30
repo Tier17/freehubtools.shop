@@ -1,3 +1,13 @@
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Contact Us - FreeHubTools',
+  description: 'Contact FreeHubTools support team.',
+  alternates: {
+    canonical: 'https://freehubtools.shop/contact',
+  },
+};
+
 export default function ContactPage() {
   return (
     <div className="container mx-auto py-12 px-4">

@@ -1,3 +1,13 @@
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Privacy Policy - FreeHubTools',
+  description: 'Privacy Policy for FreeHubTools. Learn how we handle your data.',
+  alternates: {
+    canonical: 'https://freehubtools.shop/privacy',
+  },
+};
+
 export default function PrivacyPage() {
   return (
     <div className="container mx-auto py-12 px-4">

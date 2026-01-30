@@ -36,6 +36,8 @@ import { PasswordGeneratorDemo } from '@/components/tool-demos/password-generato
 import { TitleGeneratorDemo } from '@/components/tool-demos/title-generator-demo';
 import { SeoGeneratorDemo } from '@/components/tool-demos/seo-generator-demo';
 import { EmailRewriterDemo } from '@/components/tool-demos/email-rewriter-demo';
+import { YoutubeDownloaderDemo } from '@/components/tool-demos/youtube-downloader-demo';
+import { VideoToGifDemo } from '@/components/tool-demos/video-to-gif-demo';
 import { ToolDemo } from '@/components/tool-demo'; // Import ToolDemo component
 
 interface Feature {

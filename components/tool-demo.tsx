@@ -22,7 +22,7 @@ export function ToolDemo({ toolName, inputType, placeholder }: ToolDemoProps) {
     setIsProcessing(true);
     // Simulate processing
     setTimeout(() => {
-      setOutput('Demo output: This is a placeholder showing where the results would appear after processing.');
+      setOutput(`Demo Output for ${toolName}:\n\nProcessing complete! This is a simulation of how the ${toolName} works. In the full version, your actual results would be generated and displayed here.`);
       setIsProcessing(false);
     }, 1500);
   };

@@ -60,7 +60,7 @@ export function Footer() {
           <div>
             <h3 className="font-semibold text-sm mb-4 text-foreground">Resources</h3>
             <ul className="space-y-3">
-              <li><Link href="/sitemap" className="text-sm text-foreground/70 hover:text-primary transition-colors duration-300 font-medium">Sitemap</Link></li>
+              <li><Link href="/website-map" className="text-sm text-foreground/70 hover:text-primary transition-colors duration-300 font-medium">Sitemap</Link></li>
             </ul>
           </div>
         </div>

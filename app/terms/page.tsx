@@ -1,3 +1,13 @@
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Terms of Service - FreeHubTools',
+  description: 'Terms of Service for FreeHubTools.',
+  alternates: {
+    canonical: 'https://freehubtools.shop/terms',
+  },
+};
+
 export default function TermsPage() {
   return (
     <div className="container mx-auto py-12 px-4">

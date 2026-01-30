@@ -58,14 +58,19 @@ const categories = [
     description: 'Generate, edit, and enhance images with AI.',
   },
   {
-    title: 'PDF Tools',
-    href: '/category/pdf-tools',
-    description: 'Manage, convert, and edit PDF files.',
+    title: 'Audio AI',
+    href: '/category/audio-ai',
+    description: 'Convert and transform audio content.',
   },
   {
-    title: 'Developer',
-    href: '/category/developer-tools',
-    description: 'Utilities for coding, debugging, and formatting.',
+    title: 'Video AI',
+    href: '/category/video-ai',
+    description: 'Edit and process video content.',
+  },
+  {
+    title: 'Productivity',
+    href: '/category/productivity',
+    description: 'Boost your productivity with utility tools.',
   },
 ];
 

@@ -346,6 +346,29 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   return {
     title: `${category.name} - FreeHubTools`,
     description: category.description,
+    alternates: {
+      canonical: `https://freehubtools.shop/category/${id}`,
+    },
+    openGraph: {
+      title: `${category.name} - FreeHubTools`,
+      description: category.description,
+      type: 'website',
+      url: `https://freehubtools.shop/category/${id}`,
+      images: [
+        {
+          url: '/og-image.png', // Using global OG image for categories for now, or could use specific if available
+          width: 1200,
+          height: 630,
+          alt: category.name,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${category.name} - FreeHubTools`,
+      description: category.description,
+      images: ['/og-image.png'],
+    },
   };
 }
 
@@ -357,5 +380,71 @@ export default async function CategoryPage({ params }: { params: Promise<{ id: s
     notFound();
   }
 
-  return <CategoryClient category={category} />;
+  const collectionJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: category.name,
+    description: category.description,
+    url: `https://freehubtools.shop/category/${id}`,
+    mainEntity: {
+      '@type': 'ItemList',
+      itemListElement: category.tools.map((tool, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        url: `https://freehubtools.shop/tool/${tool.id}`,
+        name: tool.name,
+        description: tool.description,
+      })),
+    },
+  };
+
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: 'https://freehubtools.shop',
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: category.name,
+        item: `https://freehubtools.shop/category/${id}`,
+      },
+    ],
+  };
+
+  const faqJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: category.faqs.map(faq => ({
+      '@type': 'Question',
+      name: faq.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: faq.answer,
+      },
+    })),
+  };
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
+      <CategoryClient category={category} />
+    </>
+  );
 }

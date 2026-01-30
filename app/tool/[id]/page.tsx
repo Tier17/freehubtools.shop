@@ -30,6 +30,20 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
       description: tool.description,
       type: 'website',
       url: `https://freehubtools.shop/tool/${id}`,
+      images: [
+        {
+          url: `/og/${id}.png`, // Dynamic OG image per tool
+          width: 1200,
+          height: 630,
+          alt: tool.name,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: tool.name,
+      description: tool.description,
+      images: [`/og/${id}.png`],
     },
   };
 }
@@ -57,11 +71,57 @@ export default async function ToolPage({ params }: { params: Promise<{ id: strin
     featureList: tool.features.map(f => f.title).join(', '),
   };
 
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: 'https://freehubtools.shop',
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: tool.category,
+        item: `https://freehubtools.shop/category/${tool.categoryId}`,
+      },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: tool.name,
+        item: `https://freehubtools.shop/tool/${id}`,
+      },
+    ],
+  };
+
+  const faqJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: tool.faqs.map(faq => ({
+      '@type': 'Question',
+      name: faq.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: faq.answer,
+      },
+    })),
+  };
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
       <ToolClient tool={tool} />
     </>
