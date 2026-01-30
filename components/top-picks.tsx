@@ -1,29 +1,30 @@
 import { ConnoisseurStackInteractor, MenuItem } from "@/components/ui/connoisseur-stack-interactor";
+import { toolData } from '@/lib/tools-data';
 
 const trendingTools: MenuItem[] = [
   {
     num: "01",
-    name: "PDF Editor",
+    name: toolData['pdf-editor'].name,
     clipId: "clip-layout",
     // Unsplash: Work/Document/Paper
-    image: "https://images.unsplash.com/photo-1542435503-956c469947f6?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
-    href: "/tool/pdf-editor"
+    image: toolData['pdf-editor'].imageUrl || "https://images.unsplash.com/photo-1542435503-956c469947f6?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+    href: `/tool/${toolData['pdf-editor'].id}`
   },
   {
     num: "02",
-    name: "Background Remover",
+    name: toolData['background-remover'].name,
     clipId: "clip-pixels",
     // Unsplash: Editing/Creative
-    image: "https://images.unsplash.com/photo-1635048424329-a9bfb146d7aa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
-    href: "/tool/background-remover"
+    image: toolData['background-remover'].imageUrl || "https://images.unsplash.com/photo-1635048424329-a9bfb146d7aa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+    href: `/tool/${toolData['background-remover'].id}`
   },
   {
     num: "03",
-    name: "Article Summarizer",
+    name: toolData['article-summarizer'].name,
     clipId: "clip-lines",
     // Unsplash: Reading/Book - Updated image
-    image: "https://images.unsplash.com/photo-1506784983877-45594efa4cbe?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
-    href: "/tool/article-summarizer"
+    image: toolData['article-summarizer'].imageUrl || "https://images.unsplash.com/photo-1506784983877-45594efa4cbe?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+    href: `/tool/${toolData['article-summarizer'].id}`
   }
 ];
 

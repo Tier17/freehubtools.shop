@@ -18,6 +18,8 @@ import {
 import { cn } from '@/lib/utils';
 import { useState } from 'react';
 
+import { categoryData } from '@/lib/categories-data';
+
 const components: { title: string; href: string; description: string }[] = [
   {
     title: 'Article Summarizer',
@@ -46,33 +48,11 @@ const components: { title: string; href: string; description: string }[] = [
   },
 ];
 
-const categories = [
-  {
-    title: 'Text AI',
-    href: '/category/text-ai',
-    description: 'Tools for writing, editing, and summarizing text.',
-  },
-  {
-    title: 'Image AI',
-    href: '/category/image-ai',
-    description: 'Generate, edit, and enhance images with AI.',
-  },
-  {
-    title: 'Audio AI',
-    href: '/category/audio-ai',
-    description: 'Convert and transform audio content.',
-  },
-  {
-    title: 'Video AI',
-    href: '/category/video-ai',
-    description: 'Edit and process video content.',
-  },
-  {
-    title: 'Productivity',
-    href: '/category/productivity',
-    description: 'Boost your productivity with utility tools.',
-  },
-];
+const categories = Object.values(categoryData).map(cat => ({
+  title: cat.name,
+  href: `/category/${cat.id}`,
+  description: cat.description
+}));
 
 export function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -145,6 +125,13 @@ export function Header() {
                       </li>
                     </ul>
                   </NavigationMenuContent>
+                </NavigationMenuItem>
+                <NavigationMenuItem>
+                  <Link href="/blog" legacyBehavior passHref>
+                    <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                      Blog
+                    </NavigationMenuLink>
+                  </Link>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
                   <Link href="/about" legacyBehavior passHref>
@@ -262,12 +249,12 @@ export function Header() {
 const ListItem = React.forwardRef<
   React.ElementRef<'a'>,
   React.ComponentPropsWithoutRef<'a'>
->(({ className, title, children, ...props }, ref) => {
+>(({ className, title, children, href, ...props }, ref) => {
   return (
     <li>
       <NavigationMenuLink asChild>
-        <a
-          ref={ref}
+        <Link
+          href={href || '/'}
           className={cn(
             'block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground',
             className
@@ -278,7 +265,7 @@ const ListItem = React.forwardRef<
           <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
             {children}
           </p>
-        </a>
+        </Link>
       </NavigationMenuLink>
     </li>
   );

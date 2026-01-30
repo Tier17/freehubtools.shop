@@ -4,7 +4,10 @@ export interface ToolData {
   category: string;
   categoryId: string;
   description: string;
+  imageUrl?: string;
   inputType: 'text' | 'file' | 'textarea';
+  beta?: boolean;
+  privacyNote?: string;
   demoPlaceholder: string;
   features: Array<{
     title: string;
@@ -39,7 +42,9 @@ export const toolData: Record<string, ToolData> = {
     category: 'Productivity',
     categoryId: 'productivity',
     description: 'Edit, sign, and annotate PDF documents directly in your browser.',
+    imageUrl: 'https://images.unsplash.com/photo-1544396821-4dd40b938ad3?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
     inputType: 'file',
+    privacyNote: 'Files are processed locally in your browser for maximum security.',
     demoPlaceholder: 'Upload a PDF to edit...',
     features: [
       {
@@ -110,17 +115,17 @@ export const toolData: Record<string, ToolData> = {
     ],
     faqs: [
       {
-        id: 'faq1',
+        id: 'pdf-editor-faq1',
         question: 'Is it secure?',
         answer: 'Yes, files are processed locally in your browser whenever possible for maximum security.',
       },
       {
-        id: 'faq2',
+        id: 'pdf-editor-faq2',
         question: 'Can I edit scanned PDFs?',
         answer: 'Basic annotation works on scans. Full text editing requires OCR (coming soon).',
       },
       {
-        id: 'faq3',
+        id: 'pdf-editor-faq3',
         question: 'Is it free?',
         answer: 'Yes, the basic PDF editor is completely free to use without limits.',
       },
@@ -199,12 +204,12 @@ export const toolData: Record<string, ToolData> = {
     ],
     faqs: [
       {
-        id: 'faq-1',
+        id: 'image-resizer-faq-1',
         question: 'Is it free?',
         answer: 'Yes, this tool is 100% free to use.',
       },
       {
-        id: 'faq-2',
+        id: 'image-resizer-faq-2',
         question: 'Are my images uploaded?',
         answer: 'No, all processing is done locally in your browser for maximum privacy.',
       },
@@ -281,12 +286,12 @@ export const toolData: Record<string, ToolData> = {
     ],
     faqs: [
       {
-        id: 'faq1',
+        id: 'image-compressor-faq1',
         question: 'How much space can I save?',
         answer: 'Typically 50-80% reduction depending on the image.',
       },
       {
-        id: 'faq2',
+        id: 'image-compressor-faq2',
         question: 'Does it affect quality?',
         answer: 'Our smart compression minimizes visible quality loss.',
       },
@@ -298,6 +303,7 @@ export const toolData: Record<string, ToolData> = {
     category: 'Text AI',
     categoryId: 'text-ai',
     description: 'Quickly summarize long articles and content into concise key points using advanced AI.',
+    imageUrl: 'https://images.unsplash.com/photo-1506784983877-45594efa4cbe?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
     inputType: 'textarea',
     demoPlaceholder: 'Paste your article here...',
     features: [
@@ -369,17 +375,17 @@ export const toolData: Record<string, ToolData> = {
     ],
     faqs: [
       {
-        id: 'faq1',
+        id: 'article-summarizer-faq1',
         question: 'Is the summary accurate?',
         answer: 'Our AI is trained to maintain high factual accuracy and preserve the original context.',
       },
       {
-        id: 'faq2',
+        id: 'article-summarizer-faq2',
         question: 'Is there a word limit?',
         answer: 'The free version supports up to 5,000 words per summary request.',
       },
       {
-        id: 'faq3',
+        id: 'article-summarizer-faq3',
         question: 'Can I summarize PDFs?',
         answer: 'Currently, you need to copy-paste the text. PDF upload support is coming soon.',
       },
@@ -391,6 +397,7 @@ export const toolData: Record<string, ToolData> = {
     category: 'Text AI',
     categoryId: 'text-ai',
     description: 'Rephrase text in different styles and tones while maintaining the original meaning.',
+    imageUrl: 'https://images.unsplash.com/photo-1455390582262-044cdead277a?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
     inputType: 'textarea',
     demoPlaceholder: 'Enter the text you want to paraphrase...',
     features: [
@@ -577,7 +584,10 @@ export const toolData: Record<string, ToolData> = {
     category: 'Image AI',
     categoryId: 'image-ai',
     description: 'Enhance and upscale your images up to 4x resolution directly in your browser.',
+    imageUrl: 'https://images.unsplash.com/photo-1550684848-fac1c5b4e853?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
     inputType: 'file',
+    beta: true,
+    privacyNote: 'Images are processed locally on your device.',
     demoPlaceholder: 'Upload an image to upscale...',
     features: [
       {
@@ -648,17 +658,17 @@ export const toolData: Record<string, ToolData> = {
     ],
     faqs: [
       {
-        id: 'faq1',
+        id: 'image-upscaler-faq1',
         question: 'Is it free?',
         answer: 'Yes, 100% free and unlimited usage.',
       },
       {
-        id: 'faq2',
+        id: 'image-upscaler-faq2',
         question: 'Do you store my photos?',
         answer: 'No. Processing is done in your browser; we never see your files.',
       },
       {
-        id: 'faq3',
+        id: 'image-upscaler-faq3',
         question: 'What is the max resolution?',
         answer: 'Output is limited to 4096x4096px for performance reasons.',
       },
@@ -670,6 +680,7 @@ export const toolData: Record<string, ToolData> = {
     category: 'Image AI',
     categoryId: 'image-ai',
     description: 'Remove backgrounds from images automatically with one click using AI.',
+    imageUrl: 'https://images.unsplash.com/photo-1633536726481-465c3676851d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
     inputType: 'file',
     demoPlaceholder: 'Upload an image...',
     features: [
@@ -694,9 +705,9 @@ export const toolData: Record<string, ToolData> = {
       { id: 'image-upscaler', name: 'Image Upscaler', description: 'Enhance and upscale images with AI', category: 'Image AI' },
     ],
     faqs: [
-      { id: 'faq1', question: 'Is it accurate?', answer: 'Yes, our model is trained on millions of professional images.' },
-      { id: 'faq2', question: 'Can I process batches?', answer: 'Currently single image, batch processing coming soon.' },
-      { id: 'faq3', question: 'Is it free?', answer: 'Yes, remove backgrounds for free without watermarks.' },
+      { id: 'background-remover-faq1', question: 'Is it accurate?', answer: 'Yes, our model is trained on millions of professional images.' },
+      { id: 'background-remover-faq2', question: 'Can I process batches?', answer: 'Currently single image, batch processing coming soon.' },
+      { id: 'background-remover-faq3', question: 'Is it free?', answer: 'Yes, remove backgrounds for free without watermarks.' },
     ],
   },
   'text-to-speech': {
@@ -705,6 +716,7 @@ export const toolData: Record<string, ToolData> = {
     category: 'Audio AI',
     categoryId: 'audio-ai',
     description: 'Convert written text into natural-sounding audio with multiple voices.',
+    imageUrl: 'https://images.unsplash.com/photo-1589254065878-42c9da997008?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
     inputType: 'textarea',
     demoPlaceholder: 'Enter text to convert to speech...',
     features: [
@@ -728,9 +740,9 @@ export const toolData: Record<string, ToolData> = {
       { id: 'audio-converter', name: 'Audio Converter', description: 'Convert audio between different formats', category: 'Audio AI' },
     ],
     faqs: [
-      { id: 'faq1', question: 'Is it free?', answer: 'Yes, generate unlimited speech for free.' },
-      { id: 'faq2', question: 'Can I monetize?', answer: 'Yes, all audio is royalty-free for commercial use.' },
-      { id: 'faq3', question: 'What formats?', answer: 'Download as high-quality MP3 or WAV.' },
+      { id: 'text-to-speech-faq1', question: 'Is it free?', answer: 'Yes, generate unlimited speech for free.' },
+      { id: 'text-to-speech-faq2', question: 'Can I monetize?', answer: 'Yes, all audio is royalty-free for commercial use.' },
+      { id: 'text-to-speech-faq3', question: 'What formats?', answer: 'Download as high-quality MP3 or WAV.' },
     ],
   },
   'audio-converter': {
@@ -804,17 +816,17 @@ export const toolData: Record<string, ToolData> = {
     ],
     faqs: [
       {
-        id: 'faq1',
+        id: 'audio-converter-faq1',
         question: 'Does conversion reduce quality?',
         answer: 'Quality depends on your chosen settings. You can maintain high quality or reduce file size.',
       },
       {
-        id: 'faq2',
+        id: 'audio-converter-faq2',
         question: 'What is the maximum file size?',
         answer: 'Up to 100MB files can be converted.',
       },
       {
-        id: 'faq3',
+        id: 'audio-converter-faq3',
         question: 'How long does conversion take?',
         answer: 'Usually 30-120 seconds depending on file size and format.',
       },
@@ -891,17 +903,17 @@ export const toolData: Record<string, ToolData> = {
     ],
     faqs: [
       {
-        id: 'faq1',
+        id: 'youtube-downloader-faq1',
         question: 'Is downloading videos legal?',
         answer: 'Respect copyright laws and creator licenses. Only download content you have rights to.',
       },
       {
-        id: 'faq2',
+        id: 'youtube-downloader-faq2',
         question: 'What quality should I choose?',
         answer: '1080p is ideal for most uses. Choose higher for large screens, lower to save space.',
       },
       {
-        id: 'faq3',
+        id: 'youtube-downloader-faq3',
         question: 'How large are the files?',
         answer: 'Depends on length and quality. 1080p videos are typically 500MB-2GB per hour.',
       },
@@ -978,17 +990,17 @@ export const toolData: Record<string, ToolData> = {
     ],
     faqs: [
       {
-        id: 'faq1',
+        id: 'video-to-gif-faq1',
         question: 'What is the maximum video length?',
         answer: 'You can convert videos up to 10 minutes long.',
       },
       {
-        id: 'faq2',
+        id: 'video-to-gif-faq2',
         question: 'How can I reduce GIF file size?',
         answer: 'Reduce duration, lower frame rate, or reduce colors.',
       },
       {
-        id: 'faq3',
+        id: 'video-to-gif-faq3',
         question: 'What file size limit?',
         answer: 'Output GIFs are typically 5-10MB depending on settings.',
       },
@@ -1023,8 +1035,8 @@ export const toolData: Record<string, ToolData> = {
       { id: 'grammar-checker', name: 'Grammar Checker', description: 'Check grammar errors', category: 'Text AI' },
     ],
     faqs: [
-      { id: 'faq1', question: 'Is my resume stored?', answer: 'No, all analysis is done locally in your browser.' },
-      { id: 'faq2', question: 'Does it rewrite for me?', answer: 'It provides suggestions and structure, but you write the final content.' },
+      { id: 'resume-improver-faq1', question: 'Is my resume stored?', answer: 'No, all analysis is done locally in your browser.' },
+      { id: 'resume-improver-faq2', question: 'Does it rewrite for me?', answer: 'It provides suggestions and structure, but you write the final content.' },
     ],
   },
   'password-generator': {
@@ -1121,9 +1133,9 @@ export const toolData: Record<string, ToolData> = {
       { id: 'title-generator', name: 'Title Generator', description: 'Generate headlines', category: 'Text AI' },
     ],
     faqs: [
-      { id: 'faq1', question: 'Is it updated for 2024?', answer: 'Yes, we follow the latest Google algorithm guidelines.' },
-      { id: 'faq2', question: 'Can I do bulk generation?', answer: 'Currently single page, but bulk tools are coming soon.' },
-      { id: 'faq3', question: 'Is it free?', answer: 'Yes, generate unlimited SEO tags for free.' },
+      { id: 'seo-generator-faq1', question: 'Is it updated for 2024?', answer: 'Yes, we follow the latest Google algorithm guidelines.' },
+      { id: 'seo-generator-faq2', question: 'Can I do bulk generation?', answer: 'Currently single page, but bulk tools are coming soon.' },
+      { id: 'seo-generator-faq3', question: 'Is it free?', answer: 'Yes, generate unlimited SEO tags for free.' },
     ],
   },
   'email-rewriter': {
@@ -1132,6 +1144,7 @@ export const toolData: Record<string, ToolData> = {
     category: 'Text AI',
     categoryId: 'text-ai',
     description: 'Rewrite your emails in different professional or casual styles.',
+    imageUrl: 'https://images.unsplash.com/photo-1557200134-90327ee9fafa?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
     inputType: 'textarea',
     demoPlaceholder: 'Paste your email draft...',
     features: [
@@ -1189,9 +1202,9 @@ export const toolData: Record<string, ToolData> = {
       { id: 'seo-generator', name: 'SEO Generator', description: 'Generate meta tags', category: 'Text AI' },
     ],
     faqs: [
-      { id: 'faq1', question: 'Is it free?', answer: 'Yes, cluster keywords for free.' },
-      { id: 'faq2', question: 'What is the limit?', answer: 'Process up to 500 keywords in a single batch.' },
-      { id: 'faq3', question: 'Does it check search volume?', answer: 'Currently no, it focuses on semantic grouping only.' },
+      { id: 'keyword-clustering-faq1', question: 'Is it free?', answer: 'Yes, cluster keywords for free.' },
+      { id: 'keyword-clustering-faq2', question: 'What is the limit?', answer: 'Process up to 500 keywords in a single batch.' },
+      { id: 'keyword-clustering-faq3', question: 'Does it check search volume?', answer: 'Currently no, it focuses on semantic grouping only.' },
     ],
   },
   'text-summarizer': {
@@ -1223,9 +1236,9 @@ export const toolData: Record<string, ToolData> = {
       { id: 'article-summarizer', name: 'Article Summarizer', description: 'Summarize articles', category: 'Text AI' },
     ],
     faqs: [
-      { id: 'faq1', question: 'Is it free?', answer: 'Yes, summarize unlimited text for free.' },
-      { id: 'faq2', question: 'What is the limit?', answer: 'Currently supports up to 5,000 words.' },
-      { id: 'faq3', question: 'Does it work on mobile?', answer: 'Yes, it is fully responsive for phone and tablet.' },
+      { id: 'text-summarizer-faq1', question: 'Is it free?', answer: 'Yes, summarize unlimited text for free.' },
+      { id: 'text-summarizer-faq2', question: 'What is the limit?', answer: 'Currently supports up to 5,000 words.' },
+      { id: 'text-summarizer-faq3', question: 'Does it work on mobile?', answer: 'Yes, it is fully responsive for phone and tablet.' },
     ],
   },
   'qr-code-generator': {
@@ -1255,7 +1268,7 @@ export const toolData: Record<string, ToolData> = {
       { id: 'password-generator', name: 'Password Generator', description: 'Generate passwords', category: 'Productivity' },
     ],
     faqs: [
-      { id: 'faq1', question: 'Does it expire?', answer: 'No, standard QR codes never expire.' },
+      { id: 'qr-code-generator-faq1', question: 'Does it expire?', answer: 'No, standard QR codes never expire.' },
     ],
   },
   'unit-converter': {
@@ -1317,8 +1330,8 @@ export const toolData: Record<string, ToolData> = {
       { id: 'image-compressor', name: 'Image Compressor', description: 'Compress images', category: 'Image' },
     ],
     faqs: [
-      { id: 'faq1', question: 'Are my files uploaded?', answer: 'No, all conversion happens locally in your browser.' },
-      { id: 'faq2', question: 'What formats are supported?', answer: 'Images (PNG/JPG/WEBP) and Text Data (JSON/CSV).' },
+      { id: 'file-converter-faq1', question: 'Are my files uploaded?', answer: 'No, all conversion happens locally in your browser.' },
+      { id: 'file-converter-faq2', question: 'What formats are supported?', answer: 'Images (PNG/JPG/WEBP) and Text Data (JSON/CSV).' },
     ],
   },
 };

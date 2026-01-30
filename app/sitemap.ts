@@ -1,8 +1,9 @@
 import { MetadataRoute } from 'next';
 import { toolData } from '@/lib/tools-data';
+import { blogPosts } from '@/lib/blog-data';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://freehubtools.shop';
+  const baseUrl = 'https://www.freehubtools.shop';
 
   // Static routes
   const routes = [
@@ -10,6 +11,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/contact',
     '/privacy',
     '/terms',
+    '/blog',
     '/category/text-ai',
     '/category/image-ai',
     '/category/audio-ai',
@@ -30,5 +32,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.9,
   }));
 
-  return [...routes, ...toolRoutes];
+  // Blog routes
+  const blogRoutes = blogPosts.map((post) => ({
+    url: `${baseUrl}/blog/${post.slug}`,
+    lastModified: new Date(post.date),
+    changeFrequency: 'monthly' as const,
+    priority: 0.7,
+  }));
+
+  return [...routes, ...toolRoutes, ...blogRoutes];
 }

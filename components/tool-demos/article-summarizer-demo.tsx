@@ -26,6 +26,7 @@ export function ArticleSummarizerDemo() {
     if (!text.trim()) return;
     setIsProcessing(true);
     setSummary('');
+    setError(null);
 
     try {
       const response = await fetch('/api/summarize', {
@@ -36,9 +37,12 @@ export function ArticleSummarizerDemo() {
       const data = await response.json();
       if (data.summary) {
         setSummary(data.summary);
+      } else if (data.error) {
+        setError(data.error);
       }
     } catch (error) {
       console.error(error);
+      setError('An error occurred while summarizing. Please try again.');
     } finally {
       setIsProcessing(false);
     }

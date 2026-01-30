@@ -9,7 +9,7 @@ export default function Home() {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
     name: 'FreeHubTools',
-    url: 'https://freehubtools.shop',
+    url: 'https://www.freehubtools.shop',
     description: 'Free AI-powered and utility tools for productivity, image editing, and content creation.',
   };
 
@@ -17,8 +17,8 @@ export default function Home() {
     '@context': 'https://schema.org',
     '@type': 'Organization',
     name: 'FreeHubTools',
-    url: 'https://freehubtools.shop',
-    logo: 'https://freehubtools.shop/icon.svg',
+    url: 'https://www.freehubtools.shop',
+    logo: 'https://www.freehubtools.shop/icon.svg',
   };
 
   return (

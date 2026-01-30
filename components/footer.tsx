@@ -69,7 +69,7 @@ export function Footer() {
 
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-sm text-foreground/70">
-            © 2024 FreeHubTools. All rights reserved.
+            © {new Date().getFullYear()} FreeHubTools. All rights reserved.
           </p>
           <div className="flex items-center gap-3">
             <span className="text-sm text-foreground/70">Made with</span>

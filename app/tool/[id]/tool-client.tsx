@@ -1,6 +1,6 @@
 'use client';
 
-import { ChevronRight } from 'lucide-react';
+import { ChevronRight, ShieldCheck } from 'lucide-react';
 import Link from 'next/link';
 import { ToolHowTo } from '@/components/tool-how-to';
 import { ToolFeatures } from '@/components/tool-features';
@@ -76,6 +76,8 @@ interface ToolData {
   categoryId: string;
   description: string;
   inputType: 'text' | 'file' | 'textarea';
+  beta?: boolean;
+  privacyNote?: string;
   demoPlaceholder: string;
   features: Feature[];
   howTo: HowToStep[];
@@ -189,7 +191,14 @@ export function ToolClient({ tool }: ToolClientProps) {
               {tool.category}
             </Link>
             <ChevronRight className="w-4 h-4" />
-            <span className="text-foreground">{tool.name}</span>
+            <span className="text-foreground flex items-center gap-2">
+              {tool.name}
+              {tool.beta && (
+                <span className="inline-flex items-center rounded-full border border-transparent bg-blue-600 px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-white shadow-sm">
+                  Beta
+                </span>
+              )}
+            </span>
           </div>
         </div>
       </div>
@@ -197,8 +206,13 @@ export function ToolClient({ tool }: ToolClientProps) {
       {customHero ? customHero : (
         <section className="border-b border-border/40 py-12 sm:py-16">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <h1 className="text-4xl sm:text-5xl font-bold tracking-tighter text-foreground mb-4">
+            <h1 className="text-4xl sm:text-5xl font-bold tracking-tighter text-foreground mb-4 flex items-center gap-3">
               {tool.name}
+              {tool.beta && (
+                <span className="inline-flex items-center rounded-full border border-transparent bg-blue-600 px-2.5 py-0.5 text-sm font-bold uppercase tracking-wider text-white shadow-sm align-middle">
+                  Beta
+                </span>
+              )}
             </h1>
             <p className="text-lg text-foreground/70 max-w-2xl">
               {tool.description}
@@ -207,7 +221,17 @@ export function ToolClient({ tool }: ToolClientProps) {
         </section>
       )}
 
-      {customDemo || <ToolDemo toolName={tool.name} inputType={tool.inputType} placeholder={tool.demoPlaceholder} />}
+      <div id="demo" className="scroll-mt-24">
+        {tool.privacyNote && (
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 my-8">
+            <div className="flex items-center gap-2 text-sm text-green-600 dark:text-green-400 font-medium bg-green-50 dark:bg-green-900/20 p-3 rounded-lg border border-green-100 dark:border-green-900/50 w-fit">
+              <ShieldCheck className="w-4 h-4" />
+              <span>{tool.privacyNote}</span>
+            </div>
+          </div>
+        )}
+        {customDemo || <ToolDemo toolName={tool.name} inputType={tool.inputType} placeholder={tool.demoPlaceholder} />}
+      </div>
       
       <ToolHowTo steps={tool.howTo} />
       <ToolFeatures features={tool.features} />

@@ -23,13 +23,13 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
     title: `${tool.name} - FreeHubTools`,
     description: tool.description,
     alternates: {
-      canonical: `https://freehubtools.shop/tool/${id}`,
+      canonical: `https://www.freehubtools.shop/tool/${id}`,
     },
     openGraph: {
       title: tool.name,
       description: tool.description,
       type: 'website',
-      url: `https://freehubtools.shop/tool/${id}`,
+      url: `https://www.freehubtools.shop/tool/${id}`,
       images: [
         {
           url: `/og/${id}.png`, // Dynamic OG image per tool
@@ -61,6 +61,7 @@ export default async function ToolPage({ params }: { params: Promise<{ id: strin
     '@type': 'SoftwareApplication',
     name: tool.name,
     description: tool.description,
+    image: tool.imageUrl,
     applicationCategory: tool.category,
     operatingSystem: 'Any',
     offers: {
@@ -79,19 +80,19 @@ export default async function ToolPage({ params }: { params: Promise<{ id: strin
         '@type': 'ListItem',
         position: 1,
         name: 'Home',
-        item: 'https://freehubtools.shop',
+        item: 'https://www.freehubtools.shop',
       },
       {
         '@type': 'ListItem',
         position: 2,
         name: tool.category,
-        item: `https://freehubtools.shop/category/${tool.categoryId}`,
+        item: `https://www.freehubtools.shop/category/${tool.categoryId}`,
       },
       {
         '@type': 'ListItem',
         position: 3,
         name: tool.name,
-        item: `https://freehubtools.shop/tool/${id}`,
+        item: `https://www.freehubtools.shop/tool/${id}`,
       },
     ],
   };
