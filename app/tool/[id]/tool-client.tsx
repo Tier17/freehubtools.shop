@@ -15,6 +15,27 @@ import { ArticleSummarizerDemo } from '@/components/tool-demos/article-summarize
 import { BackgroundRemoverDemo } from '@/components/tool-demos/background-remover-demo';
 import { PdfEditorHero } from '@/components/tool-heros/pdf-editor-hero';
 import { PdfEditorDemo } from '@/components/tool-demos/pdf-editor-demo';
+import { ImageResizerHero } from '@/components/tool-heros/image-resizer-hero';
+import { ImageResizerDemo } from '@/components/tool-demos/image-resizer-demo';
+import { GrammarCheckerDemo } from '@/components/tool-demos/grammar-checker-demo';
+import { ImageUpscalerHero } from '@/components/tool-heros/image-upscaler-hero';
+import { ImageUpscalerDemo } from '@/components/tool-demos/image-upscaler-demo';
+import { ImageCompressorHero } from '@/components/tool-heros/image-compressor-hero';
+import { ImageCompressorDemo } from '@/components/tool-demos/image-compressor-demo';
+import { ParaphraserHero } from '@/components/tool-heros/paraphraser-hero';
+import { ParaphraserDemo } from '@/components/tool-demos/paraphraser-demo';
+import { TextToSpeechDemo } from '@/components/tool-demos/text-to-speech-demo';
+import { AudioConverterDemo } from '@/components/tool-demos/audio-converter-demo';
+import { KeywordClusteringDemo } from '@/components/tool-demos/keyword-clustering-demo';
+import { TextSummarizerDemo } from '@/components/tool-demos/text-summarizer-demo';
+import { QrCodeGeneratorDemo } from '@/components/tool-demos/qr-code-generator-demo';
+import { UnitConverterDemo } from '@/components/tool-demos/unit-converter-demo';
+import { FileConverterDemo } from '@/components/tool-demos/file-converter-demo';
+import { ResumeImproverDemo } from '@/components/tool-demos/resume-improver-demo';
+import { PasswordGeneratorDemo } from '@/components/tool-demos/password-generator-demo';
+import { TitleGeneratorDemo } from '@/components/tool-demos/title-generator-demo';
+import { SeoGeneratorDemo } from '@/components/tool-demos/seo-generator-demo';
+import { EmailRewriterDemo } from '@/components/tool-demos/email-rewriter-demo';
 import { ToolDemo } from '@/components/tool-demo'; // Import ToolDemo component
 
 interface Feature {
@@ -67,6 +88,8 @@ interface ToolClientProps {
 
 function getToolHero(toolId: string) {
   switch (toolId) {
+    case 'image-upscaler':
+      return <ImageUpscalerHero />;
     case 'article-summarizer':
       return <ArticleSummarizerHero />;
     case 'background-remover':
@@ -77,6 +100,12 @@ function getToolHero(toolId: string) {
       return <TextToSpeechHero />;
     case 'pdf-editor':
       return <PdfEditorHero />;
+    case 'image-resizer':
+      return <ImageResizerHero />;
+    case 'image-compressor':
+      return <ImageCompressorHero />;
+    case 'paraphraser':
+      return <ParaphraserHero />;
     default:
       return null;
   }
@@ -90,6 +119,40 @@ function getToolDemo(toolId: string) {
       return <BackgroundRemoverDemo />;
     case 'pdf-editor':
       return <PdfEditorDemo />;
+    case 'image-resizer':
+      return <ImageResizerDemo />;
+    case 'grammar-checker':
+      return <GrammarCheckerDemo />;
+    case 'image-upscaler':
+      return <ImageUpscalerDemo />;
+    case 'image-compressor':
+      return <ImageCompressorDemo />;
+    case 'paraphraser':
+      return <ParaphraserDemo />;
+    case 'text-to-speech':
+      return <TextToSpeechDemo />;
+    case 'audio-converter':
+      return <AudioConverterDemo />;
+    case 'resume-improver':
+      return <ResumeImproverDemo />;
+    case 'password-generator':
+      return <PasswordGeneratorDemo />;
+    case 'title-generator':
+      return <TitleGeneratorDemo />;
+    case 'seo-generator':
+      return <SeoGeneratorDemo />;
+    case 'email-rewriter':
+      return <EmailRewriterDemo />;
+    case 'keyword-clustering':
+      return <KeywordClusteringDemo />;
+    case 'text-summarizer':
+      return <TextSummarizerDemo />;
+    case 'qr-code-generator':
+      return <QrCodeGeneratorDemo />;
+    case 'unit-converter':
+      return <UnitConverterDemo />;
+    case 'file-converter':
+      return <FileConverterDemo />;
     default:
       return null;
   }

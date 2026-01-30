@@ -40,6 +40,66 @@ const tools = [
     link: '/tool/image-upscaler',
     text: 'Image Upscaler',
     image: 'https://images.unsplash.com/photo-1550684848-fac1c5b4e853?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80'
+  },
+  {
+    link: '/tool/text-to-speech',
+    text: 'Text to Speech',
+    image: 'https://images.unsplash.com/photo-1589254065878-42c9da997008?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80'
+  },
+  {
+    link: '/tool/audio-converter',
+    text: 'Audio Converter',
+    image: 'https://images.unsplash.com/photo-1478737270239-2f02b77ac6d5?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80'
+  },
+  {
+    link: '/tool/resume-improver',
+    text: 'Resume Improver',
+    image: 'https://images.unsplash.com/photo-1586281380349-632531db7ed4?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80'
+  },
+  {
+    link: '/tool/password-generator',
+    text: 'Password Generator',
+    image: 'https://images.unsplash.com/photo-1614064641938-3bbee52942c7?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80'
+  },
+  {
+    link: '/tool/title-generator',
+    text: 'Title Generator',
+    image: 'https://images.unsplash.com/photo-1455390582262-044cdead277a?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80'
+  },
+  {
+    link: '/tool/seo-generator',
+    text: 'SEO Generator',
+    image: 'https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80'
+  },
+  {
+    link: '/tool/email-rewriter',
+    text: 'Email Rewriter',
+    image: 'https://images.unsplash.com/photo-1557200134-90327ee9fafa?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80'
+  },
+  {
+    link: '/tool/keyword-clustering',
+    text: 'Keyword Clustering',
+    image: 'https://images.unsplash.com/photo-1555421689-d68471e189f2?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80'
+  },
+  {
+    link: '/tool/text-summarizer',
+    text: 'Text Summarizer',
+    image: 'https://images.unsplash.com/photo-1456324504439-367cee3b3c32?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80'
+  },
+  {
+    link: '/tool/qr-code-generator',
+    text: 'QR Code Generator',
+    image: 'https://images.unsplash.com/photo-1595079676339-1534801fafde?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80'
+  },
+  {
+    link: '/tool/unit-converter',
+    text: 'Unit Converter',
+    image: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80'
+  },
+  {
+    link: '/tool/file-converter',
+    text: 'File Converter',
+    image: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80'
   }
 ];
 

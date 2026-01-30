@@ -687,7 +687,6 @@ export function PdfEditorDemo() {
               </Button>
           </div>
           )}</div>
-        </div>
         </TooltipProvider>
 
         {/* Editor Area */}

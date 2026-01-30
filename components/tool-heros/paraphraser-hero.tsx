@@ -1,8 +1,8 @@
-import { ArrowRight, FileText } from 'lucide-react';
+import { ArrowRight, PenTool } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
-export function ArticleSummarizerHero() {
+export function ParaphraserHero() {
   return (
     <div className="relative isolate overflow-hidden bg-background">
       <div className="mx-auto max-w-7xl px-6 pb-24 pt-10 sm:pb-32 lg:flex lg:px-8 lg:py-40">
@@ -16,20 +16,20 @@ export function ArticleSummarizerHero() {
             </div>
           </div>
           <h1 className="mt-10 text-4xl font-bold tracking-tight text-foreground sm:text-6xl">
-            Instant Article Summarizer
+            Smart Paraphrasing Tool
           </h1>
           <p className="mt-6 text-lg leading-8 text-muted-foreground">
-            Condense long articles, papers, or documents into clear, concise summaries.
-            Choose your preferred length and format.
+            Rewrite text to be more fluent, professional, or creative.
+            Improve clarity and adjust tone instantly with AI.
           </p>
           <div className="mt-10 flex items-center gap-x-6">
             <Button size="lg" asChild>
               <Link href="#demo">
-                Summarize Now <ArrowRight className="ml-2 w-4 h-4" />
+                Start Paraphrasing <ArrowRight className="ml-2 w-4 h-4" />
               </Link>
             </Button>
             <Link href="/tools" className="text-sm font-semibold leading-6 text-foreground">
-              View all AI tools <span aria-hidden="true">→</span>
+              Explore tools <span aria-hidden="true">→</span>
             </Link>
           </div>
         </div>
@@ -37,7 +37,7 @@ export function ArticleSummarizerHero() {
           <div className="max-w-3xl flex-none sm:max-w-5xl lg:max-w-none">
             <div className="-m-2 rounded-xl bg-gray-900/5 p-2 ring-1 ring-inset ring-gray-900/10 dark:bg-gray-100/5 dark:ring-gray-100/10 lg:-m-4 lg:rounded-2xl lg:p-4">
                <div className="rounded-md shadow-2xl ring-1 ring-gray-900/10 dark:bg-slate-800/40 dark:ring-gray-100/10 p-4">
-                <FileText className="w-[300px] h-[200px] text-muted-foreground/20" />
+                <PenTool className="w-[300px] h-[200px] text-muted-foreground/20" />
               </div>
             </div>
           </div>

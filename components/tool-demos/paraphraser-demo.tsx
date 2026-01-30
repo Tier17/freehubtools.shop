@@ -5,16 +5,15 @@ import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
-import { Loader2, FileText, Copy, Check } from 'lucide-react';
+import { Loader2, PenTool, Copy, Check, RefreshCw } from 'lucide-react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
-export function ArticleSummarizerDemo() {
+export function ParaphraserDemo() {
   const [text, setText] = useState('');
-  const [summary, setSummary] = useState('');
+  const [rewritten, setRewritten] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
-  const [length, setLength] = useState('medium');
-  const [format, setFormat] = useState('paragraph');
+  const [tone, setTone] = useState('professional');
+  const [mode, setMode] = useState('standard');
   const [copied, setCopied] = useState(false);
   const [mounted, setMounted] = useState(false);
 
@@ -22,20 +21,20 @@ export function ArticleSummarizerDemo() {
     setMounted(true);
   }, []);
 
-  const handleSummarize = async () => {
+  const handleParaphrase = async () => {
     if (!text.trim()) return;
     setIsProcessing(true);
-    setSummary('');
+    setRewritten('');
 
     try {
-      const response = await fetch('/api/summarize', {
+      const response = await fetch('/api/paraphrase', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ text, length, format }),
+        body: JSON.stringify({ text, tone, mode }),
       });
       const data = await response.json();
-      if (data.summary) {
-        setSummary(data.summary);
+      if (data.rewritten) {
+        setRewritten(data.rewritten);
       }
     } catch (error) {
       console.error(error);
@@ -45,7 +44,7 @@ export function ArticleSummarizerDemo() {
   };
 
   const copyToClipboard = () => {
-    navigator.clipboard.writeText(summary);
+    navigator.clipboard.writeText(rewritten);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
@@ -59,12 +58,12 @@ export function ArticleSummarizerDemo() {
           
           <div className="space-y-4">
             <h3 className="text-xl font-semibold flex items-center gap-2">
-              <FileText className="w-5 h-5" />
-              Input Article
+              <PenTool className="w-5 h-5" />
+              Original Text
             </h3>
             <Card className="p-4">
               <Textarea
-                placeholder="Paste your article text here..."
+                placeholder="Enter text to rewrite..."
                 className="min-h-[400px] resize-none border-0 focus-visible:ring-0 text-base"
                 value={text}
                 onChange={(e) => setText(e.target.value)}
@@ -73,27 +72,30 @@ export function ArticleSummarizerDemo() {
             
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <Label>Summary Length</Label>
-                <Select value={length} onValueChange={setLength}>
+                <Label>Tone</Label>
+                <Select value={tone} onValueChange={setTone}>
                   <SelectTrigger>
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="short">Short (~50 words)</SelectItem>
-                    <SelectItem value="medium">Medium (~150 words)</SelectItem>
-                    <SelectItem value="long">Long (~300 words)</SelectItem>
+                    <SelectItem value="professional">Professional</SelectItem>
+                    <SelectItem value="casual">Casual</SelectItem>
+                    <SelectItem value="academic">Academic</SelectItem>
+                    <SelectItem value="creative">Creative</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
               <div>
-                <Label>Format</Label>
-                 <Select value={format} onValueChange={setFormat}>
+                <Label>Mode</Label>
+                 <Select value={mode} onValueChange={setMode}>
                   <SelectTrigger>
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="paragraph">Paragraph</SelectItem>
-                    <SelectItem value="bullets">Bullet Points</SelectItem>
+                    <SelectItem value="standard">Standard</SelectItem>
+                    <SelectItem value="fluency">Fluency</SelectItem>
+                    <SelectItem value="expand">Expand</SelectItem>
+                    <SelectItem value="shorten">Shorten</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -102,24 +104,27 @@ export function ArticleSummarizerDemo() {
             <Button 
               className="w-full" 
               size="lg"
-              onClick={handleSummarize}
+              onClick={handleParaphrase}
               disabled={!text.trim() || isProcessing}
             >
               {isProcessing ? (
                 <>
                   <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                  Summarizing...
+                  Rewriting...
                 </>
               ) : (
-                "Summarize"
+                <>
+                  <RefreshCw className="w-4 h-4 mr-2" />
+                  Paraphrase
+                </>
               )}
             </Button>
           </div>
 
           <div className="space-y-4">
             <div className="flex items-center justify-between">
-              <h3 className="text-xl font-semibold">Summary</h3>
-              {summary && (
+              <h3 className="text-xl font-semibold">Rewritten Text</h3>
+              {rewritten && (
                 <Button variant="ghost" size="sm" onClick={copyToClipboard}>
                   {copied ? <Check className="w-4 h-4 mr-2" /> : <Copy className="w-4 h-4 mr-2" />}
                   {copied ? "Copied" : "Copy"}
@@ -127,13 +132,13 @@ export function ArticleSummarizerDemo() {
               )}
             </div>
             <Card className="p-6 min-h-[400px] bg-muted/30">
-              {summary ? (
+              {rewritten ? (
                 <div className="prose dark:prose-invert max-w-none whitespace-pre-wrap">
-                  {summary}
+                  {rewritten}
                 </div>
               ) : (
                 <div className="h-full flex items-center justify-center text-muted-foreground">
-                  Summary will appear here...
+                  Rewritten text will appear here...
                 </div>
               )}
             </Card>

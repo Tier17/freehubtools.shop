@@ -1,0 +1,36 @@
+import { NextResponse } from 'next/server';
+import OpenAI from 'openai';
+
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY,
+});
+
+const systemPrompt = `You are an SEO and data analysis expert.
+Group the provided list of keywords into semantic clusters.
+Output strictly as a JSON object with a "clusters" array.
+Each cluster should have a "name" (string) and "keywords" (array of strings).`;
+
+export async function POST(req: Request) {
+  try {
+    const { text } = await req.json();
+
+    if (!text) {
+      return NextResponse.json({ error: 'Keywords are required' }, { status: 400 });
+    }
+
+    const completion = await openai.chat.completions.create({
+      model: "gpt-5-mini",
+      messages: [
+        { role: "system", content: systemPrompt },
+        { role: "user", content: `Cluster these keywords:\n${text}` }
+      ],
+      response_format: { type: "json_object" },
+    });
+
+    const result = JSON.parse(completion.choices[0].message.content || '{"clusters": []}');
+    return NextResponse.json(result);
+  } catch (error) {
+    console.error('Keyword clustering error:', error);
+    return NextResponse.json({ error: 'Failed to cluster keywords' }, { status: 500 });
+  }
+}

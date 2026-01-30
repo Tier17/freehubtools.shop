@@ -120,6 +120,90 @@ const toolData: Record<string, ToolData> = {
       },
     ],
   },
+  'image-resizer': {
+    id: 'image-resizer',
+    name: 'Image Resizer',
+    category: 'Image AI',
+    categoryId: 'image-ai',
+    description: 'Resize images to any dimension with pixel-perfect precision.',
+    inputType: 'file',
+    demoPlaceholder: 'Upload an image to resize...',
+    features: [
+      {
+        title: 'Custom Dimensions',
+        description: 'Set exact width and height or maintain aspect ratio.',
+      },
+      {
+        title: 'Format Conversion',
+        description: 'Convert between JPG, PNG, and WebP formats.',
+      },
+      {
+        title: 'Quality Control',
+        description: 'Adjust image quality to optimize file size.',
+      },
+      {
+        title: 'Privacy Focused',
+        description: 'All processing happens locally in your browser. No uploads.',
+      },
+    ],
+    howTo: [
+      {
+        step: 1,
+        title: 'Upload Image',
+        description: 'Select the image you want to resize.',
+      },
+      {
+        step: 2,
+        title: 'Set Dimensions',
+        description: 'Enter your desired width and height.',
+      },
+      {
+        step: 3,
+        title: 'Download',
+        description: 'Save your resized image instantly.',
+      },
+    ],
+    useCases: [
+      {
+        title: 'Social Media',
+        description: 'Resize photos for Instagram, Twitter, and Facebook.',
+      },
+      {
+        title: 'Web Optimization',
+        description: 'Reduce image size for faster website loading.',
+      },
+      {
+        title: 'Email Attachments',
+        description: 'Shrink images to fit email size limits.',
+      },
+    ],
+    relatedTools: [
+      {
+        id: 'background-remover',
+        name: 'Background Remover',
+        description: 'Remove backgrounds from images automatically',
+        category: 'Image AI',
+      },
+      {
+        id: 'image-upscaler',
+        name: 'Image Upscaler',
+        description: 'Enhance and upscale images with AI',
+        category: 'Image AI',
+      },
+    ],
+    faqs: [
+      {
+        id: 'faq-1',
+        question: 'Is it free?',
+        answer: 'Yes, this tool is 100% free to use.',
+      },
+      {
+        id: 'faq-2',
+        question: 'Are my images uploaded?',
+        answer: 'No, all processing is done locally in your browser for maximum privacy.',
+      },
+    ],
+  },
   'image-compressor': {
     id: 'image-compressor',
     name: 'Image Compressor',
@@ -485,6 +569,99 @@ const toolData: Record<string, ToolData> = {
         id: 'faq3',
         question: 'Can I trust all the suggestions?',
         answer: 'The tool is accurate 98% of the time. Always review suggestions in context.',
+      },
+    ],
+  },
+  'image-upscaler': {
+    id: 'image-upscaler',
+    name: 'Image Upscaler',
+    category: 'Image AI',
+    categoryId: 'image-ai',
+    description: 'Enhance and upscale your images up to 4x resolution directly in your browser.',
+    inputType: 'file',
+    demoPlaceholder: 'Upload an image to upscale...',
+    features: [
+      {
+        title: 'Up to 4x Upscaling',
+        description: 'Increase resolution by 2x, 3x, or 4x without pixelation.',
+      },
+      {
+        title: 'Smart Sharpening',
+        description: 'Enhance details and edges with adjustable sharpening.',
+      },
+      {
+        title: 'Contrast Boost',
+        description: 'Improve image clarity with optional contrast enhancement.',
+      },
+      {
+        title: 'Private & Secure',
+        description: 'All processing happens locally on your device.',
+      },
+    ],
+    howTo: [
+      {
+        step: 1,
+        title: 'Upload Image',
+        description: 'Select the image you want to upscale (JPEG, PNG, WebP).',
+      },
+      {
+        step: 2,
+        title: 'Choose Settings',
+        description: 'Select scale factor (2x-4x) and sharpening level.',
+      },
+      {
+        step: 3,
+        title: 'Process & Download',
+        description: 'Click "Upscale" and download your enhanced image.',
+      },
+    ],
+    useCases: [
+      {
+        title: 'Printing',
+        description: 'Prepare low-res images for high-quality printing.',
+      },
+      {
+        title: 'Web Design',
+        description: 'Upscale assets for high-DPI displays.',
+      },
+      {
+        title: 'Restoration',
+        description: 'Improve quality of old or small digital photos.',
+      },
+      {
+        title: 'E-commerce',
+        description: 'Enhance product photos for better listing quality.',
+      },
+    ],
+    relatedTools: [
+      {
+        id: 'image-resizer',
+        name: 'Image Resizer',
+        description: 'Resize images to any dimension',
+        category: 'Image AI',
+      },
+      {
+        id: 'background-remover',
+        name: 'Background Remover',
+        description: 'Remove backgrounds from images',
+        category: 'Image AI',
+      },
+    ],
+    faqs: [
+      {
+        id: 'faq1',
+        question: 'Is it free?',
+        answer: 'Yes, 100% free and unlimited usage.',
+      },
+      {
+        id: 'faq2',
+        question: 'Do you store my photos?',
+        answer: 'No. Processing is done in your browser; we never see your files.',
+      },
+      {
+        id: 'faq3',
+        question: 'What is the max resolution?',
+        answer: 'Output is limited to 4096x4096px for performance reasons.',
       },
     ],
   },
@@ -1110,6 +1287,235 @@ const toolData: Record<string, ToolData> = {
       },
     ],
   },
+  'resume-improver': {
+    id: 'resume-improver',
+    name: 'Resume Bullet Improver',
+    category: 'Productivity',
+    categoryId: 'productivity',
+    description: 'Enhance your resume bullet points with strong action verbs and metrics.',
+    inputType: 'textarea',
+    demoPlaceholder: 'Paste a resume bullet point...',
+    features: [
+      { title: 'Weak Word Detection', description: 'Identifies weak verbs and suggests stronger alternatives.' },
+      { title: 'Metric Suggestions', description: 'Reminds you to add quantifiable results.' },
+      { title: 'Structure Check', description: 'Ensures you follow the Context-Action-Result format.' },
+      { title: 'Privacy Focused', description: 'All analysis happens locally in your browser.' },
+    ],
+    howTo: [
+      { step: 1, title: 'Paste Bullet Point', description: 'Enter a bullet point from your resume.' },
+      { step: 2, title: 'Analyze', description: 'Click improve to see suggestions.' },
+      { step: 3, title: 'Refine', description: 'Apply the suggestions to strengthen your resume.' },
+    ],
+    useCases: [
+      { title: 'Job Applications', description: 'Optimize your resume for specific job applications.' },
+      { title: 'LinkedIn Profile', description: 'Improve your LinkedIn experience section.' },
+      { title: 'Career Growth', description: 'Update your resume with recent achievements.' },
+      { title: 'Interview Prep', description: 'Refine your talking points for interviews.' },
+    ],
+    relatedTools: [
+      { id: 'grammar-checker', name: 'Grammar Checker', description: 'Check grammar errors', category: 'Text AI' },
+    ],
+    faqs: [
+      { id: 'faq1', question: 'Is my resume stored?', answer: 'No, all analysis is done locally in your browser.' },
+      { id: 'faq2', question: 'Does it rewrite for me?', answer: 'It provides suggestions and structure, but you write the final content.' },
+    ],
+  },
+  'password-generator': {
+    id: 'password-generator',
+    name: 'Password Generator',
+    category: 'Security',
+    categoryId: 'security',
+    description: 'Generate strong, secure passwords locally in your browser.',
+    inputType: 'text',
+    demoPlaceholder: 'Generated password will appear here...',
+    features: [
+      { title: 'Custom Length', description: 'Generate passwords from 8 to 64 characters.' },
+      { title: 'Character Sets', description: 'Toggle uppercase, lowercase, numbers, and symbols.' },
+      { title: 'Client-Side', description: 'Passwords are generated locally and never sent to a server.' },
+      { title: 'Copy to Clipboard', description: 'One-click copy for convenience.' },
+    ],
+    howTo: [
+      { step: 1, title: 'Select Options', description: 'Choose length and character types.' },
+      { step: 2, title: 'Generate', description: 'Click generate to create a new password.' },
+      { step: 3, title: 'Copy', description: 'Copy the password to your clipboard.' },
+    ],
+    useCases: [
+      { title: 'Account Security', description: 'Create unique passwords for every account.' },
+      { title: 'WiFi Passwords', description: 'Generate strong keys for your network.' },
+      { title: 'Temporary Access', description: 'Create secure temporary passwords.' },
+      { title: 'Compliance', description: 'Meet password complexity requirements.' },
+    ],
+    relatedTools: [],
+    faqs: [
+      { id: 'faq1', question: 'Is it safe?', answer: 'Yes, 100% safe. Passwords never leave your browser.' },
+      { id: 'faq2', question: 'Can you recover my password?', answer: 'No, we do not store any generated passwords.' },
+    ],
+  },
+  'title-generator': {
+    id: 'title-generator',
+    name: 'Title Generator',
+    category: 'Text AI',
+    categoryId: 'text-ai',
+    description: 'Generate catchy, SEO-friendly titles and headlines for your content.',
+    inputType: 'textarea',
+    demoPlaceholder: 'Describe your content...',
+    features: [
+      { title: 'Multiple Styles', description: 'Generate clickbait, professional, or question-based titles.' },
+      { title: 'SEO Optimized', description: 'Titles designed to improve click-through rates.' },
+      { title: 'Bulk Generation', description: 'Get 5-10 options in one go.' },
+      { title: 'AI Powered', description: 'Uses advanced language models for creativity.' },
+    ],
+    howTo: [
+      { step: 1, title: 'Describe Content', description: 'Enter a summary or topic of your content.' },
+      { step: 2, title: 'Select Style', description: 'Choose the tone you want for your titles.' },
+      { step: 3, title: 'Generate', description: 'Get a list of title options instantly.' },
+    ],
+    useCases: [
+      { title: 'Blog Posts', description: 'Create engaging headlines for articles.' },
+      { title: 'YouTube Videos', description: 'Generate click-worthy video titles.' },
+      { title: 'Email Subject Lines', description: 'Improve email open rates.' },
+      { title: 'Social Media', description: 'Catch attention on social feeds.' },
+    ],
+    relatedTools: [
+      { id: 'seo-generator', name: 'SEO Generator', description: 'Generate meta tags', category: 'Text AI' },
+    ],
+    faqs: [
+      { id: 'faq1', question: 'Are these titles unique?', answer: 'Yes, they are generated specifically for your input.' },
+      { id: 'faq2', question: 'Can I use them for YouTube?', answer: 'Absolutely, they work great for video titles.' },
+    ],
+  },
+  'seo-generator': {
+    id: 'seo-generator',
+    name: 'SEO Generator',
+    category: 'Text AI',
+    categoryId: 'text-ai',
+    description: 'Generate optimized meta titles, descriptions, and keywords for better ranking.',
+    inputType: 'textarea',
+    demoPlaceholder: 'Enter your content...',
+    features: [
+      { title: 'Meta Tags', description: 'Generates title tags and meta descriptions.' },
+      { title: 'Keyword Extraction', description: 'Identifies relevant keywords from your text.' },
+      { title: 'Character Counts', description: 'Ensures tags fit within search engine limits.' },
+      { title: 'AI Analysis', description: 'Understands content context for better relevance.' },
+    ],
+    howTo: [
+      { step: 1, title: 'Enter Content', description: 'Paste your article or product description.' },
+      { step: 2, title: 'Generate', description: 'Click to create SEO metadata.' },
+      { step: 3, title: 'Implement', description: 'Copy and paste into your website CMS.' },
+    ],
+    useCases: [
+      { title: 'Website Pages', description: 'Optimize landing pages and blog posts.' },
+      { title: 'E-commerce', description: 'Generate SEO tags for product pages.' },
+      { title: 'Content Marketing', description: 'Improve visibility of your content.' },
+      { title: 'Local SEO', description: 'Optimize for local search terms.' },
+    ],
+    relatedTools: [
+      { id: 'title-generator', name: 'Title Generator', description: 'Generate headlines', category: 'Text AI' },
+    ],
+    faqs: [
+      { id: 'faq1', question: 'Does this guarantee rankings?', answer: 'It helps, but rankings depend on many factors.' },
+      { id: 'faq2', question: 'What is the character limit?', answer: 'We follow standard limits: 60 for titles, 160 for descriptions.' },
+    ],
+  },
+  'email-rewriter': {
+    id: 'email-rewriter',
+    name: 'Email Rewriter',
+    category: 'Text AI',
+    categoryId: 'text-ai',
+    description: 'Rewrite your emails in different professional or casual styles.',
+    inputType: 'textarea',
+    demoPlaceholder: 'Paste your email draft...',
+    features: [
+      { title: 'Style Presets', description: 'Professional, Friendly, Urgent, Persuasive, and more.' },
+      { title: 'Tone Adjustment', description: 'Change the tone without losing the message.' },
+      { title: 'Clarity Improvement', description: 'Makes your emails clearer and more effective.' },
+      { title: 'Time Saving', description: 'Quickly polish drafts into sendable emails.' },
+    ],
+    howTo: [
+      { step: 1, title: 'Draft Email', description: 'Write a rough draft of your email.' },
+      { step: 2, title: 'Choose Style', description: 'Select the desired tone.' },
+      { step: 3, title: 'Rewrite', description: 'Get a polished version instantly.' },
+    ],
+    useCases: [
+      { title: 'Business Communication', description: 'Ensure professional correspondence.' },
+      { title: 'Sales Outreach', description: 'Write persuasive cold emails.' },
+      { title: 'Difficult Conversations', description: 'Find the right words for sensitive topics.' },
+      { title: 'Quick Replies', description: 'Turn brief notes into full responses.' },
+    ],
+    relatedTools: [
+      { id: 'grammar-checker', name: 'Grammar Checker', description: 'Fix grammar errors', category: 'Text AI' },
+    ],
+    faqs: [
+      { id: 'faq1', question: 'Is my email private?', answer: 'We process text via secure AI and do not store it.' },
+      { id: 'faq2', question: 'Can it translate?', answer: 'It is best for rewriting in the same language.' },
+    ],
+  },
+  'keyword-clustering': {
+    id: 'keyword-clustering',
+    name: 'Keyword Clustering',
+    category: 'Text AI',
+    categoryId: 'text-ai',
+    description: 'Group large lists of keywords into semantic clusters for SEO strategy.',
+    inputType: 'textarea',
+    demoPlaceholder: 'Paste keyword list...',
+    features: [
+      { title: 'Semantic Grouping', description: 'Groups keywords by meaning and intent.' },
+      { title: 'Topic Discovery', description: 'Identifies main topics within your keyword list.' },
+      { title: 'Content Planning', description: 'Helps structure content hubs and silos.' },
+      { title: 'Bulk Processing', description: 'Handle dozens of keywords at once.' },
+    ],
+    howTo: [
+      { step: 1, title: 'Paste Keywords', description: 'Enter your list of keywords.' },
+      { step: 2, title: 'Cluster', description: 'Let AI analyze and group them.' },
+      { step: 3, title: 'Export', description: 'Use the clusters for your content strategy.' },
+    ],
+    useCases: [
+      { title: 'SEO Strategy', description: 'Plan website structure and content.' },
+      { title: 'PPC Campaigns', description: 'Organize ad groups effectively.' },
+      { title: 'Market Research', description: 'Understand user search intent.' },
+      { title: 'Content Calendar', description: 'Plan articles based on topic clusters.' },
+    ],
+    relatedTools: [
+      { id: 'seo-generator', name: 'SEO Generator', description: 'Generate meta tags', category: 'Text AI' },
+    ],
+    faqs: [
+      { id: 'faq1', question: 'How many keywords can I check?', answer: 'Current limit is about 50-100 keywords per batch.' },
+      { id: 'faq2', question: 'What logic is used?', answer: 'We use semantic AI to understand the meaning behind keywords.' },
+    ],
+  },
+  'text-summarizer': {
+    id: 'text-summarizer',
+    name: 'Text Summarizer',
+    category: 'Text AI',
+    categoryId: 'text-ai',
+    description: 'Summarize any text into concise paragraphs or bullet points.',
+    inputType: 'textarea',
+    demoPlaceholder: 'Paste text to summarize...',
+    features: [
+      { title: 'Adjustable Length', description: 'Choose between short, medium, or long summaries.' },
+      { title: 'Format Options', description: 'Get results as paragraphs or bullet points.' },
+      { title: 'Key Point Extraction', description: 'Identifies the most important information.' },
+      { title: 'Fast Processing', description: 'Summarize long text in seconds.' },
+    ],
+    howTo: [
+      { step: 1, title: 'Paste Text', description: 'Enter the text you want to summarize.' },
+      { step: 2, title: 'Select Options', description: 'Choose length and format.' },
+      { step: 3, title: 'Summarize', description: 'Get your summary instantly.' },
+    ],
+    useCases: [
+      { title: 'Reading', description: 'Quickly digest long articles or reports.' },
+      { title: 'Writing', description: 'Create abstracts or executive summaries.' },
+      { title: 'Studying', description: 'Review key concepts from notes.' },
+      { title: 'Research', description: 'Scan multiple documents efficiently.' },
+    ],
+    relatedTools: [
+      { id: 'article-summarizer', name: 'Article Summarizer', description: 'Summarize articles', category: 'Text AI' },
+    ],
+    faqs: [
+      { id: 'faq1', question: 'How is this different from Article Summarizer?', answer: 'This is optimized for general text snippets, while Article Summarizer is tuned for full articles.' },
+      { id: 'faq2', question: 'Is there a word limit?', answer: 'Supports up to ~3000 words per request.' },
+    ],
+  },
   'password-generator': {
     id: 'password-generator',
     name: 'Password Generator',
@@ -1119,82 +1525,25 @@ const toolData: Record<string, ToolData> = {
     inputType: 'text',
     demoPlaceholder: 'No input needed - just generate!',
     features: [
-      {
-        title: 'Customizable Length',
-        description: 'Set password length from 8 to 128 characters.',
-      },
-      {
-        title: 'Character Options',
-        description: 'Include uppercase, lowercase, numbers, and symbols.',
-      },
-      {
-        title: 'One-Click Generation',
-        description: 'Generate new passwords instantly.',
-      },
-      {
-        title: 'Secure & Private',
-        description: 'Generated locally, nothing is stored or logged.',
-      },
+      { title: 'Customizable Length', description: 'Set password length from 8 to 128 characters.' },
+      { title: 'Character Options', description: 'Include uppercase, lowercase, numbers, and symbols.' },
+      { title: 'One-Click Generation', description: 'Generate new passwords instantly.' },
+      { title: 'Secure & Private', description: 'Generated locally, nothing is stored or logged.' },
     ],
     howTo: [
-      {
-        step: 1,
-        title: 'Configure Options',
-        description: 'Choose password length and character types.',
-      },
-      {
-        step: 2,
-        title: 'Generate',
-        description: 'Click to generate a strong password.',
-      },
-      {
-        step: 3,
-        title: 'Copy and Use',
-        description: 'Copy the password and use it for your account.',
-      },
+      { step: 1, title: 'Configure Options', description: 'Choose password length and character types.' },
+      { step: 2, title: 'Generate', description: 'Click to generate a strong password.' },
+      { step: 3, title: 'Copy', description: 'Copy the password and use it.' },
     ],
     useCases: [
-      {
-        title: 'Account Creation',
-        description: 'Generate secure passwords for new accounts.',
-      },
-      {
-        title: 'Password Updates',
-        description: 'Create new passwords when updating existing accounts.',
-      },
-      {
-        title: 'System Admin',
-        description: 'Generate passwords for user accounts.',
-      },
-      {
-        title: 'Security Audit',
-        description: 'Create strong replacement passwords.',
-      },
+      { title: 'Account Security', description: 'Generate unique passwords for every account.' },
+      { title: 'Admin Tasks', description: 'Create temporary passwords for users.' },
     ],
     relatedTools: [
-      {
-        id: 'qr-code-generator',
-        name: 'QR Code Generator',
-        description: 'Generate QR codes from text, URLs, and contact info',
-        category: 'Productivity',
-      },
+      { id: 'qr-code-generator', name: 'QR Code Generator', description: 'Generate QR codes', category: 'Productivity' },
     ],
     faqs: [
-      {
-        id: 'faq1',
-        question: 'How secure are generated passwords?',
-        answer: 'Using cryptographic randomization, our passwords are highly secure.',
-      },
-      {
-        id: 'faq2',
-        question: 'Can I customize requirements?',
-        answer: 'Yes, exclude or include specific character types as needed.',
-      },
-      {
-        id: 'faq3',
-        question: 'Are passwords logged?',
-        answer: 'No, everything is generated locally. We do not store or log anything.',
-      },
+      { id: 'faq1', question: 'Is it secure?', answer: 'Yes, it uses your browser\'s cryptographic random generator.' },
     ],
   },
   'qr-code-generator': {
@@ -1204,84 +1553,90 @@ const toolData: Record<string, ToolData> = {
     categoryId: 'productivity',
     description: 'Generate QR codes from text, URLs, and contact information.',
     inputType: 'text',
-    demoPlaceholder: 'Enter text or URL to encode...',
+    demoPlaceholder: 'Enter text or URL...',
     features: [
-      {
-        title: 'Multiple Data Types',
-        description: 'Encode URLs, text, contact info, WiFi, and more.',
-      },
-      {
-        title: 'Size & Format',
-        description: 'Download as PNG or SVG in any size.',
-      },
-      {
-        title: 'Error Correction',
-        description: 'Built-in error correction for reliability.',
-      },
-      {
-        title: 'Custom Design',
-        description: 'Color customization options available.',
-      },
+      { title: 'Instant Generation', description: 'See the QR code update as you type.' },
+      { title: 'Downloadable', description: 'Save as PNG for use in print or web.' },
+      { title: 'Multiple Types', description: 'Support for URLs, text, and more.' },
+      { title: 'Privacy Focused', description: 'Generated securely via reliable API.' },
     ],
     howTo: [
-      {
-        step: 1,
-        title: 'Enter Data',
-        description: 'Type or paste the URL, text, or contact info.',
-      },
-      {
-        step: 2,
-        title: 'Generate',
-        description: 'Instantly generate your QR code.',
-      },
-      {
-        step: 3,
-        title: 'Download',
-        description: 'Download in PNG or SVG format.',
-      },
+      { step: 1, title: 'Enter Data', description: 'Type the URL or text you want to encode.' },
+      { step: 2, title: 'Adjust Size', description: 'Use the slider to change the size.' },
+      { step: 3, title: 'Download', description: 'Save the QR code image.' },
     ],
     useCases: [
-      {
-        title: 'Marketing',
-        description: 'Include QR codes in advertisements and marketing materials.',
-      },
-      {
-        title: 'Contact Info',
-        description: 'Share contact details via QR codes.',
-      },
-      {
-        title: 'WiFi Sharing',
-        description: 'Generate QR codes for easy WiFi connection.',
-      },
-      {
-        title: 'Event Tickets',
-        description: 'Create QR codes for event check-in.',
-      },
+      { title: 'Marketing', description: 'Share website links on flyers.' },
+      { title: 'WiFi Access', description: 'Share network credentials easily.' },
     ],
     relatedTools: [
-      {
-        id: 'password-generator',
-        name: 'Password Generator',
-        description: 'Create strong, secure passwords for all your accounts',
-        category: 'Productivity',
-      },
+      { id: 'password-generator', name: 'Password Generator', description: 'Generate passwords', category: 'Productivity' },
     ],
     faqs: [
-      {
-        id: 'faq1',
-        question: 'What can I encode in a QR code?',
-        answer: 'URLs, plain text, contact info, WiFi credentials, phone numbers, emails, and more.',
-      },
-      {
-        id: 'faq2',
-        question: 'Is there a character limit?',
-        answer: 'Typically up to 4,296 characters depending on data type.',
-      },
-      {
-        id: 'faq3',
-        question: 'Can I customize the design?',
-        answer: 'Yes, color customization is available. More design options coming soon.',
-      },
+      { id: 'faq1', question: 'Does it expire?', answer: 'No, standard QR codes never expire.' },
+    ],
+  },
+  'unit-converter': {
+    id: 'unit-converter',
+    name: 'Unit Converter',
+    category: 'Productivity',
+    categoryId: 'productivity',
+    description: 'Convert between common units of length, weight, and temperature.',
+    inputType: 'text',
+    demoPlaceholder: 'Enter value...',
+    features: [
+      { title: 'Multi-Category', description: 'Support for Length, Weight, and Temperature.' },
+      { title: 'Instant Conversion', description: 'Results appear as you type.' },
+      { title: 'Common Units', description: 'Includes metric and imperial units.' },
+      { title: 'Simple Interface', description: 'Clean and easy to use.' },
+    ],
+    howTo: [
+      { step: 1, title: 'Select Category', description: 'Choose Length, Weight, or Temperature.' },
+      { step: 2, title: 'Enter Value', description: 'Type the number you want to convert.' },
+      { step: 3, title: 'Select Units', description: 'Choose source and target units.' },
+    ],
+    useCases: [
+      { title: 'Cooking', description: 'Convert recipes between metric and imperial.' },
+      { title: 'Travel', description: 'Understand distances and temperatures abroad.' },
+      { title: 'Education', description: 'Help with math and science homework.' },
+    ],
+    relatedTools: [
+      { id: 'file-converter', name: 'File Converter', description: 'Convert files', category: 'Productivity' },
+    ],
+    faqs: [
+      { id: 'faq1', question: 'Is it accurate?', answer: 'Yes, uses standard conversion factors.' },
+    ],
+  },
+  'file-converter': {
+    id: 'file-converter',
+    name: 'Universal File Converter',
+    category: 'Productivity',
+    categoryId: 'productivity',
+    description: 'Convert images and data formats directly in your browser.',
+    inputType: 'file',
+    demoPlaceholder: 'Upload file...',
+    features: [
+      { title: 'Image Conversion', description: 'Convert between PNG, JPEG, and WEBP.' },
+      { title: 'Data Conversion', description: 'Convert JSON to CSV and vice versa.' },
+      { title: 'Client-Side', description: 'Files never leave your device.' },
+      { title: 'Fast & Secure', description: 'Instant processing with no upload wait time.' },
+    ],
+    howTo: [
+      { step: 1, title: 'Choose Mode', description: 'Select Image or Data converter.' },
+      { step: 2, title: 'Upload/Paste', description: 'Select your file or paste your data.' },
+      { step: 3, title: 'Convert', description: 'Download your converted file.' },
+    ],
+    useCases: [
+      { title: 'Web Development', description: 'Optimize images for the web.' },
+      { title: 'Data Analysis', description: 'Prepare data for spreadsheets.' },
+      { title: 'Content Creation', description: 'Fix image formats for social media.' },
+    ],
+    relatedTools: [
+      { id: 'image-compressor', name: 'Image Compressor', description: 'Compress images', category: 'Image' },
+    ],
+    faqs: [
+      { id: 'faq1', question: 'Are my files uploaded?', answer: 'No, all conversion happens locally in your browser.' },
+      { id: 'faq2', question: 'What formats are supported?', answer: 'Images (PNG/JPG/WEBP) and Text Data (JSON/CSV).' },
     ],
   },
 };
