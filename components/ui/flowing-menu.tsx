@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useRef, useEffect, useState } from 'react';
+import Link from 'next/link';
 import { gsap } from 'gsap';
 import './flowing-menu.css';
 
@@ -162,7 +163,7 @@ function MenuItem({ link, text, image, speed, textColor, marqueeBgColor, marquee
 
   return (
     <div className="menu__item" ref={itemRef} style={{ borderColor: borderColor }}>
-      <a 
+      <Link 
         href={link} 
         className="menu__item-link" 
         style={{ color: textColor }}
@@ -170,7 +171,7 @@ function MenuItem({ link, text, image, speed, textColor, marqueeBgColor, marquee
         onMouseLeave={handleMouseLeave}
       >
         {text}
-      </a>
+      </Link>
       <div className="marquee" ref={marqueeRef} style={{ backgroundColor: marqueeBgColor }}>
         <div className="marquee__inner-wrap">
           <div className="marquee__inner" aria-hidden="true" ref={marqueeInnerRef}>

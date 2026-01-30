@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import OpenAI from 'openai';
+import { checkRateLimit } from '@/lib/rate-limit';
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -10,6 +11,11 @@ Summarize the provided text into a concise and clear version.
 Output strictly as a JSON object with a "summary" string field.`;
 
 export async function POST(req: Request) {
+  const rateLimit = checkRateLimit(req, 'AI');
+  if (!rateLimit.success) {
+    return rateLimit.response;
+  }
+
   try {
     const { text, length = 'medium' } = await req.json();
 

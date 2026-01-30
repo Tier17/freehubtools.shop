@@ -67,7 +67,10 @@ export function AudioConverterDemo() {
             See It In Action
           </h2>
           <p className="text-foreground/70">
-            Convert your audio files instantly.
+            Convert your audio files instantly. <span className="inline-block bg-yellow-100 text-yellow-800 text-xs px-2 py-0.5 rounded ml-2 dark:bg-yellow-900 dark:text-yellow-100">Demo Mode</span>
+          </p>
+          <p className="text-xs text-muted-foreground mt-1">
+            (Client-side demo: Real conversion requires server-side processing)
           </p>
         </div>
 

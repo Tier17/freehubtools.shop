@@ -3,7 +3,7 @@
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Upload, Sparkles } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 
 export function BackgroundRemoverDemo() {
   const [isDragActive, setIsDragActive] = useState(false);

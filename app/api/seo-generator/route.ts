@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import OpenAI from 'openai';
+import { checkRateLimit } from '@/lib/rate-limit';
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -11,6 +12,11 @@ Follow best practices: Title under 60 chars, Description under 160 chars.
 Output strictly as a JSON object with keys: "metaTitle", "metaDescription", "keywords" (array).`;
 
 export async function POST(req: Request) {
+  const rateLimit = checkRateLimit(req, 'AI');
+  if (!rateLimit.success) {
+    return rateLimit.response;
+  }
+
   try {
     const { text } = await req.json();
 

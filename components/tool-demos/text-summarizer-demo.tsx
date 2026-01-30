@@ -79,8 +79,16 @@ export function TextSummarizerDemo() {
               />
             </Card>
 
+            {error && (
+              <Alert variant="destructive">
+                <AlertTriangle className="h-4 w-4" />
+                <AlertTitle>Error</AlertTitle>
+                <AlertDescription>{error}</AlertDescription>
+              </Alert>
+            )}
+
             <Button 
-              onClick={generateSummary} 
+              onClick={generateSummary}  
               className="w-full text-lg h-12 shadow-lg hover:shadow-xl transition-all"
               disabled={loading || !text}
               size="lg"

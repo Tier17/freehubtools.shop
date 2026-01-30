@@ -8,38 +8,55 @@ import { Label } from '@/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Download, Link as LinkIcon, Type } from 'lucide-react';
 import { Slider } from '@/components/ui/slider';
+import QRCode from 'qrcode';
 
 export function QrCodeGeneratorDemo() {
   const [mounted, setMounted] = useState(false);
   const [text, setText] = useState('https://freehubtools.shop');
   const [size, setSize] = useState(250);
   const [qrUrl, setQrUrl] = useState('');
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
   useEffect(() => {
-    // Using a reliable public API for QR generation
-    const encodedText = encodeURIComponent(text);
-    setQrUrl(`https://api.qrserver.com/v1/create-qr-code/?size=${size}x${size}&data=${encodedText}`);
+    const generateQR = async () => {
+      try {
+        setError(null);
+        if (!text) {
+          setQrUrl('');
+          return;
+        }
+        const url = await QRCode.toDataURL(text, {
+          width: size,
+          margin: 1,
+          color: {
+            dark: '#000000',
+            light: '#ffffff',
+          },
+        });
+        setQrUrl(url);
+      } catch (err) {
+        console.error('QR Generation failed:', err);
+        setError('Failed to generate QR code');
+      }
+    };
+
+    const timeoutId = setTimeout(generateQR, 300); // Debounce
+    return () => clearTimeout(timeoutId);
   }, [text, size]);
 
-  const handleDownload = async () => {
-    try {
-      const response = await fetch(qrUrl);
-      const blob = await response.blob();
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'qrcode.png';
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      window.URL.revokeObjectURL(url);
-    } catch (error) {
-      console.error('Download failed:', error);
-    }
+  const handleDownload = () => {
+    if (!qrUrl) return;
+    
+    const a = document.createElement('a');
+    a.href = qrUrl;
+    a.download = 'qrcode.png';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
   };
 
   if (!mounted) return null;

@@ -5,8 +5,9 @@ import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
-import { Loader2, PenTool, Copy, Check, RefreshCw } from 'lucide-react';
+import { Loader2, PenTool, Copy, Check, RefreshCw, AlertTriangle } from 'lucide-react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 
 export function ParaphraserDemo() {
   const [text, setText] = useState('');
@@ -16,6 +17,7 @@ export function ParaphraserDemo() {
   const [mode, setMode] = useState('standard');
   const [copied, setCopied] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     setMounted(true);
@@ -25,6 +27,7 @@ export function ParaphraserDemo() {
     if (!text.trim()) return;
     setIsProcessing(true);
     setRewritten('');
+    setError(null);
 
     try {
       const response = await fetch('/api/paraphrase', {
@@ -32,12 +35,14 @@ export function ParaphraserDemo() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ text, tone, mode }),
       });
+      if (!response.ok) throw new Error('Failed to paraphrase');
       const data = await response.json();
       if (data.rewritten) {
         setRewritten(data.rewritten);
       }
     } catch (error) {
       console.error(error);
+      setError('Failed to paraphrase text. Please try again.');
     } finally {
       setIsProcessing(false);
     }
@@ -100,6 +105,14 @@ export function ParaphraserDemo() {
                 </Select>
               </div>
             </div>
+
+            {error && (
+              <Alert variant="destructive">
+                <AlertTriangle className="h-4 w-4" />
+                <AlertTitle>Error</AlertTitle>
+                <AlertDescription>{error}</AlertDescription>
+              </Alert>
+            )}
 
             <Button 
               className="w-full" 

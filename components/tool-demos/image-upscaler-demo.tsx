@@ -68,12 +68,10 @@ export function ImageUpscalerDemo() {
       return;
     }
 
-    /* 
-       Note: The prompt mentions "Complete processing within 5 seconds for images up to 5MB".
-       We allow larger files but warn or show progress.
-    */
-    
-    setFile(selectedFile);
+    if (selectedFile.size > MAX_FILE_SIZE_MB * 1024 * 1024) {
+      setError(`File size exceeds ${MAX_FILE_SIZE_MB}MB limit.`);
+      return;
+    }
     
     // Create preview
     const objectUrl = URL.createObjectURL(selectedFile);

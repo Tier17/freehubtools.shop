@@ -4,49 +4,43 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Minimal Professional Palette */
-  /* Background / main: #F5F0E6 (soft beige) */
-  --background: #F5F0E6;
-  /* Foreground: Dark warm grey/brown for contrast on beige */
-  --foreground: #2D2A26;
+  /* Professional Monochrome/Slate Palette */
+  /* Background: Clean white/off-white for professionalism */
+  --background: #ffffff;
+  /* Foreground: Deep slate for high contrast text */
+  --foreground: #0f172a;
   
-  /* Card: White or very light beige to stand out */
-  --card: #FFFFFF;
-  --card-foreground: #2D2A26;
+  /* Card: Subtle gray for depth */
+  --card: #f8fafc;
+  --card-foreground: #0f172a;
   
   /* Popover */
-  --popover: #FFFFFF;
-  --popover-foreground: #2D2A26;
+  --popover: #ffffff;
+  --popover-foreground: #0f172a;
   
-  /* Primary: #1F6FEB (deep blue) - Buttons, Links */
-  --primary: #1F6FEB;
-  --primary-foreground: #FFFFFF;
+  /* Primary: Deep Slate/Charcoal (No more generic blue) */
+  --primary: #1e293b;
+  --primary-foreground: #f8fafc;
   
-  /* Secondary/Accent: #E85D9E (soft rose) - Tiny highlights only */
-  --secondary: #E85D9E;
-  --secondary-foreground: #FFFFFF;
+  /* Secondary: Subtle gray for secondary actions */
+  --secondary: #f1f5f9;
+  --secondary-foreground: #0f172a;
   
-  --muted: #E6E0D0;
-  --muted-foreground: #787060;
+  --muted: #f1f5f9;
+  --muted-foreground: #64748b;
   
-  /* Accent uses soft rose */
-  --accent: #E85D9E;
-  --accent-foreground: #FFFFFF;
+  /* Accent: Subtle blue-gray for highlights */
+  --accent: #e2e8f0;
+  --accent-foreground: #0f172a;
   
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(1 0 0);
+  --destructive: #ef4444;
+  --destructive-foreground: #f8fafc;
   
-  --border: #DCD0C0;
-  --input: #DCD0C0;
-  --ring: #1F6FEB;
+  --border: #e2e8f0;
+  --input: #e2e8f0;
+  --ring: #1e293b;
   
-  --chart-1: #1F6FEB;
-  --chart-2: #E85D9E;
-  --chart-3: oklch(0.55 0.20 250);
-  --chart-4: oklch(0.48 0.25 240);
-  --chart-5: oklch(0.51 0.22 248);
-  
-  --radius: 1rem;
+  --radius: 0.5rem; /* Sharper corners for professional look */
   
   --sidebar: #F5F0E6;
   --sidebar-foreground: #2D2A26;

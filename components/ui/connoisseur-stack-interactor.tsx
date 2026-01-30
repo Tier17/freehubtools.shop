@@ -2,6 +2,7 @@
 
 import { cn } from "@/lib/utils";
 import { useEffect, useRef, useState, useLayoutEffect } from "react";
+import Link from "next/link";
 import gsap from "gsap";
 
 export interface MenuItem {
@@ -9,6 +10,7 @@ export interface MenuItem {
   name: string;
   clipId: string;
   image: string;
+  href?: string;
 }
 
 const defaultItems: MenuItem[] = [
@@ -115,7 +117,7 @@ export const ConnoisseurStackInteractor = ({
                 onMouseEnter={() => handleItemHover(index)}
                 className="group cursor-pointer"
               >
-                <div className="flex items-start gap-6">
+                <Link href={item.href || "#"} className="flex items-start gap-6 block w-full" onClick={(e) => !item.href && e.preventDefault()}>
                   {/* Numbers: Increased visibility for non-hover state */}
                   <span className={cn(
                     "text-3xl font-bold transition-all duration-500 mt-2",
@@ -138,7 +140,7 @@ export const ConnoisseurStackInteractor = ({
                     {item.name.split(' ')[0]}<br />
                     {item.name.split(' ')[1]}
                   </h2>
-                </div>
+                </Link>
               </li>
             ))}
           </ul>

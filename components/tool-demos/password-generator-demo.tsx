@@ -43,8 +43,10 @@ export function PasswordGeneratorDemo() {
     }
 
     let result = '';
+    const array = new Uint32Array(length[0]);
+    crypto.getRandomValues(array);
     for (let i = 0; i < length[0]; i++) {
-      result += chars.charAt(Math.floor(Math.random() * chars.length));
+      result += chars.charAt(array[i] % chars.length);
     }
     setPassword(result);
   };

@@ -28,6 +28,7 @@ export function GrammarCheckerDemo() {
   const [isChecking, setIsChecking] = useState(false);
   const [spellErrors, setSpellErrors] = useState<SpellError[]>([]);
   const [styleWarnings, setStyleWarnings] = useState<StyleWarning[]>([]);
+  const [error, setError] = useState<string | null>(null);
   
   // Prevent hydration mismatch
   const [mounted, setMounted] = useState(false);
@@ -39,6 +40,7 @@ export function GrammarCheckerDemo() {
     if (!text.trim()) return;
 
     setIsChecking(true);
+    setError(null);
     setSpellErrors([]);
     setStyleWarnings([]);
 
@@ -81,7 +83,7 @@ export function GrammarCheckerDemo() {
       setStyleWarnings(newStyleWarnings);
     } catch (error) {
       console.error('Analysis failed:', error);
-      // Fallback or error state could be added here
+      setError('Failed to analyze text. Please try again later.');
     } finally {
       setIsChecking(false);
     }
@@ -95,11 +97,13 @@ export function GrammarCheckerDemo() {
     setText('');
     setSpellErrors([]);
     setStyleWarnings([]);
+    setError(null);
   };
 
   const loadExample = () => {
     const example = "I have written this sentence in passive voice. It is believed that mistakes was made. So basically, actually, I think this is sort of good.";
     setText(example);
+    setError(null);
   };
 
   const applySuggestion = (originalWord: string, suggestion: string) => {
@@ -139,6 +143,14 @@ export function GrammarCheckerDemo() {
                 onChange={(e) => setText(e.target.value)}
               />
             </Card>
+
+            {error && (
+              <Alert variant="destructive">
+                <AlertTriangle className="h-4 w-4" />
+                <AlertTitle>Error</AlertTitle>
+                <AlertDescription>{error}</AlertDescription>
+              </Alert>
+            )}
 
             <Button 
               size="lg" 

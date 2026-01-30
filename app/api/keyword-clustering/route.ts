@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import OpenAI from 'openai';
+import { checkRateLimit } from '@/lib/rate-limit';
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -11,6 +12,11 @@ Output strictly as a JSON object with a "clusters" array.
 Each cluster should have a "name" (string) and "keywords" (array of strings).`;
 
 export async function POST(req: Request) {
+  const rateLimit = checkRateLimit(req, 'AI');
+  if (!rateLimit.success) {
+    return rateLimit.response;
+  }
+
   try {
     const { text } = await req.json();
 

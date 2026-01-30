@@ -6,21 +6,24 @@ const trendingTools: MenuItem[] = [
     name: "PDF Editor",
     clipId: "clip-layout",
     // Unsplash: Work/Document/Paper
-    image: "https://images.unsplash.com/photo-1542435503-956c469947f6?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+    image: "https://images.unsplash.com/photo-1542435503-956c469947f6?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+    href: "/tool/pdf-editor"
   },
   {
     num: "02",
     name: "Background Remover",
     clipId: "clip-pixels",
     // Unsplash: Editing/Creative
-    image: "https://images.unsplash.com/photo-1635048424329-a9bfb146d7aa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+    image: "https://images.unsplash.com/photo-1635048424329-a9bfb146d7aa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+    href: "/tool/background-remover"
   },
   {
     num: "03",
     name: "Article Summarizer",
     clipId: "clip-lines",
     // Unsplash: Reading/Book
-    image: "https://images.unsplash.com/photo-1456324504439-367cee101252?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+    image: "https://images.unsplash.com/photo-1456324504439-367cee101252?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+    href: "/tool/article-summarizer"
   }
 ];
 

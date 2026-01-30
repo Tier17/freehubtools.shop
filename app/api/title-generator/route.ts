@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import OpenAI from 'openai';
+import { checkRateLimit } from '@/lib/rate-limit';
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -11,6 +12,11 @@ Provide 5-10 distinct options ranging from professional to click-worthy.
 Output strictly as a JSON object with a "titles" array of strings.`;
 
 export async function POST(req: Request) {
+  const rateLimit = checkRateLimit(req, 'AI');
+  if (!rateLimit.success) {
+    return rateLimit.response;
+  }
+
   try {
     const { text, style = 'mixed' } = await req.json();
 

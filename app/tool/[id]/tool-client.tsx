@@ -153,6 +153,10 @@ function getToolDemo(toolId: string) {
       return <UnitConverterDemo />;
     case 'file-converter':
       return <FileConverterDemo />;
+    case 'youtube-downloader':
+      return <YoutubeDownloaderDemo />;
+    case 'video-to-gif':
+      return <VideoToGifDemo />;
     default:
       return null;
   }
