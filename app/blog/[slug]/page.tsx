@@ -1,10 +1,12 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { blogPosts } from '@/lib/blog-data';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { CalendarDays, User, ArrowLeft, Share2 } from 'lucide-react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { CalendarDays, User, ArrowLeft, Share2, Clock } from 'lucide-react';
 
 interface BlogPostPageProps {
   params: Promise<{
@@ -41,11 +43,13 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
       publishedTime: post.date,
       authors: [post.author],
       tags: post.tags,
+      images: post.imageUrl ? [{ url: post.imageUrl }] : undefined,
     },
     twitter: {
       card: 'summary_large_image',
       title: post.title,
       description: post.excerpt,
+      images: post.imageUrl ? [post.imageUrl] : undefined,
     },
   };
 }
@@ -58,12 +62,18 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     notFound();
   }
 
+  // Find related posts (same category, excluding current)
+  const relatedPosts = blogPosts
+    .filter((p) => p.category === post.category && p.slug !== post.slug)
+    .slice(0, 3);
+
   // Schema Markup for Article
   const articleJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'BlogPosting',
     headline: post.title,
     description: post.excerpt,
+    image: post.imageUrl ? [post.imageUrl] : undefined,
     author: {
       '@type': 'Organization',
       name: post.author,
@@ -100,7 +110,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         </h1>
         
         <div className="flex items-center justify-between border-b pb-6 mb-8 text-muted-foreground">
-          <div className="flex items-center gap-6">
+          <div className="flex flex-wrap items-center gap-4 sm:gap-6">
             <div className="flex items-center gap-2">
               <User className="w-4 h-4" />
               <span>{post.author}</span>
@@ -109,12 +119,30 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               <CalendarDays className="w-4 h-4" />
               <span>{post.date}</span>
             </div>
+            {post.readingTime && (
+              <div className="flex items-center gap-2">
+                <Clock className="w-4 h-4" />
+                <span>{post.readingTime}</span>
+              </div>
+            )}
           </div>
           <Button variant="outline" size="sm" className="hidden sm:flex gap-2">
             <Share2 className="w-4 h-4" />
             Share
           </Button>
         </div>
+
+        {post.imageUrl && (
+          <div className="relative w-full h-[300px] md:h-[400px] mb-8 rounded-xl overflow-hidden shadow-lg">
+            <Image
+              src={post.imageUrl}
+              alt={post.title}
+              fill
+              className="object-cover"
+              priority
+            />
+          </div>
+        )}
       </div>
 
       <div 
@@ -133,6 +161,34 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           ))}
         </div>
       </div>
+
+      {relatedPosts.length > 0 && (
+        <div className="mt-16 pt-8 border-t">
+          <h2 className="text-2xl font-bold mb-6">Related Posts</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {relatedPosts.map((related) => (
+              <Link href={`/blog/${related.slug}`} key={related.slug} className="group">
+                <Card className="h-full hover:shadow-md transition-all group-hover:-translate-y-1">
+                  <CardHeader>
+                    <CardTitle className="text-lg line-clamp-2 group-hover:text-primary transition-colors">
+                      {related.title}
+                    </CardTitle>
+                    <div className="flex items-center text-xs text-muted-foreground mt-2">
+                      <CalendarDays className="w-3 h-3 mr-1" />
+                      {related.date}
+                    </div>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-sm text-muted-foreground line-clamp-3">
+                      {related.excerpt}
+                    </p>
+                  </CardContent>
+                </Card>
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
     </article>
   );
 }
