@@ -13,7 +13,6 @@ Focus: organic search traffic and clear site architecture (no tech stack details
   - /text-ai/
   - /image-ai/
   - /audio-ai/
-  - /video-ai/
   - /productivity/
 - Tool pages:
   - /category/tool-name/

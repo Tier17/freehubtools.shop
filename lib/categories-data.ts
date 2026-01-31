@@ -129,11 +129,6 @@ export const categoryData: Record<string, CategoryData> = {
     ],
     relatedCategories: [
       {
-        id: 'video-ai',
-        name: 'Video AI',
-        description: 'Edit and process video content',
-      },
-      {
         id: 'audio-ai',
         name: 'Audio AI',
         description: 'Convert and transform audio content',
@@ -156,22 +151,12 @@ export const categoryData: Record<string, CategoryData> = {
         name: 'Text to Speech',
         description: 'Convert written text into natural-sounding audio',
       },
-      {
-        id: 'audio-converter',
-        name: 'Audio Converter',
-        description: 'Convert audio between different formats seamlessly',
-      },
     ],
     faqs: [
       {
         id: 'audio-ai-faq1',
         question: 'What voices are available in Text to Speech?',
         answer: 'We offer 50+ natural-sounding voices in multiple languages including English, Spanish, French, German, and more.',
-      },
-      {
-        id: 'audio-ai-faq2',
-        question: 'What audio formats are supported?',
-        answer: 'Audio Converter supports MP3, WAV, FLAC, OGG, M4A, AAC, and more. All conversions maintain quality.',
       },
       {
         id: 'audio-ai-faq3',
@@ -181,72 +166,10 @@ export const categoryData: Record<string, CategoryData> = {
       {
         id: 'audio-ai-faq4',
         question: 'How long can audio be?',
-        answer: 'Text to Speech supports up to 5000 characters. For Audio Converter, file size limit is 100MB.',
+        answer: 'Text to Speech supports up to 5000 characters.',
       },
     ],
     relatedCategories: [
-      {
-        id: 'video-ai',
-        name: 'Video AI',
-        description: 'Edit and process video content',
-      },
-      {
-        id: 'image-ai',
-        name: 'Image AI',
-        description: 'Edit and enhance images with AI',
-      },
-      {
-        id: 'text-ai',
-        name: 'Text AI',
-        description: 'Process and enhance text content',
-      },
-    ],
-  },
-  'video-ai': {
-    id: 'video-ai',
-    name: 'Video AI Tools',
-    description: 'AI tools for video processing and conversion',
-    intro: 'Download videos, create GIFs, and process video content with our AI-powered video tools.',
-    tools: [
-      {
-        id: 'youtube-downloader',
-        name: 'YouTube Downloader',
-        description: 'Download videos from YouTube and other platforms',
-      },
-      {
-        id: 'video-to-gif',
-        name: 'Video to GIF',
-        description: 'Convert video clips into animated GIFs easily',
-      },
-    ],
-    faqs: [
-      {
-        id: 'video-ai-faq1',
-        question: 'Is YouTube Downloader legal?',
-        answer: 'Our tool respects copyright laws. Only download content you have rights to. Always respect creator licenses.',
-      },
-      {
-        id: 'video-ai-faq2',
-        question: 'What quality options are available?',
-        answer: 'Download in 360p, 720p, 1080p, 2K, and 4K quality depending on source availability.',
-      },
-      {
-        id: 'video-ai-faq3',
-        question: 'Can I create GIFs from any video?',
-        answer: 'Yes, you can upload video files or provide URLs. GIFs support videos up to 10 minutes long.',
-      },
-      {
-        id: 'video-ai-faq4',
-        question: 'What is the maximum GIF file size?',
-        answer: 'Output GIF files are typically 5-10MB. You can adjust duration and quality to control file size.',
-      },
-    ],
-    relatedCategories: [
-      {
-        id: 'audio-ai',
-        name: 'Audio AI',
-        description: 'Convert and transform audio content',
-      },
       {
         id: 'image-ai',
         name: 'Image AI',

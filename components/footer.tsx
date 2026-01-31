@@ -29,7 +29,6 @@ export function Footer() {
               <li><Link href="/category/text-ai" className="text-sm text-foreground/70 hover:text-primary transition-colors duration-300 font-medium">Text AI</Link></li>
               <li><Link href="/category/image-ai" className="text-sm text-foreground/70 hover:text-primary transition-colors duration-300 font-medium">Image AI</Link></li>
               <li><Link href="/category/audio-ai" className="text-sm text-foreground/70 hover:text-primary transition-colors duration-300 font-medium">Audio AI</Link></li>
-              <li><Link href="/category/video-ai" className="text-sm text-foreground/70 hover:text-primary transition-colors duration-300 font-medium">Video AI</Link></li>
             </ul>
           </div>
 

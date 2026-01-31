@@ -20,7 +20,6 @@ export default function SitemapPage() {
             <li><Link href="/category/text-ai" className="hover:text-primary">Text AI Tools</Link></li>
             <li><Link href="/category/image-ai" className="hover:text-primary">Image AI Tools</Link></li>
             <li><Link href="/category/audio-ai" className="hover:text-primary">Audio AI Tools</Link></li>
-            <li><Link href="/category/video-ai" className="hover:text-primary">Video AI Tools</Link></li>
             <li><Link href="/category/productivity" className="hover:text-primary">Productivity Tools</Link></li>
           </ul>
         </div>

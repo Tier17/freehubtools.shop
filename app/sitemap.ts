@@ -15,7 +15,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/category/text-ai',
     '/category/image-ai',
     '/category/audio-ai',
-    '/category/video-ai',
     '/category/productivity',
   ].map((route) => ({
     url: `${baseUrl}${route}`,

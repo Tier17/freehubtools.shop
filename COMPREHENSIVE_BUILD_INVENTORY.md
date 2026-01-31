@@ -121,16 +121,10 @@
 3. **Audio AI** (`audio-ai`)
    - Icon: 🎵
    - Gradient: Green to Emerald (`from-green-500 to-emerald-500`)
-   - Tools: 2
+   - Tools: 1
    - Description: Convert text to speech and transform audio
 
-4. **Video AI** (`video-ai`)
-   - Icon: 🎬
-   - Gradient: Orange to Red (`from-orange-500 to-red-500`)
-   - Tools: 2
-   - Description: Download videos and create GIFs easily
-
-5. **Productivity** (`productivity`)
+4. **Productivity** (`productivity`)
    - Icon: ⚙️
    - Gradient: Indigo to Purple (`from-indigo-500 to-purple-500`)
    - Tools: 2
@@ -182,11 +176,6 @@
    - Category: Audio AI
    - Tags: AI, Free
    - Rating: 4.5/5
-
-8. **Audio Converter** (`audio-converter`)
-   - Category: Audio AI
-   - Tags: Utility, Free
-   - Rating: 4.6/5
 
 **Features:**
 - 4 column responsive grid (1 mobile, 2 tablet, 4 desktop)
