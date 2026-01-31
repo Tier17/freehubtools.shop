@@ -1,7 +1,8 @@
 import FlowingMenu from './ui/flowing-menu';
 import { toolData } from '@/lib/tools-data';
 
-const tools = Object.values(toolData).map((tool) => ({
+const allTools = Object.values(toolData);
+const tools = allTools.slice(0, Math.ceil(allTools.length / 2)).map((tool) => ({
   link: `/tool/${tool.id}`,
   text: tool.name,
   image: tool.imageUrl || 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80'

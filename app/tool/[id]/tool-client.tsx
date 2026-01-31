@@ -25,7 +25,6 @@ import { ImageCompressorDemo } from '@/components/tool-demos/image-compressor-de
 import { ParaphraserHero } from '@/components/tool-heros/paraphraser-hero';
 import { ParaphraserDemo } from '@/components/tool-demos/paraphraser-demo';
 import { TextToSpeechDemo } from '@/components/tool-demos/text-to-speech-demo';
-import { AudioConverterDemo } from '@/components/tool-demos/audio-converter-demo';
 import { KeywordClusteringDemo } from '@/components/tool-demos/keyword-clustering-demo';
 import { TextSummarizerDemo } from '@/components/tool-demos/text-summarizer-demo';
 import { QrCodeGeneratorDemo } from '@/components/tool-demos/qr-code-generator-demo';
@@ -36,9 +35,7 @@ import { PasswordGeneratorDemo } from '@/components/tool-demos/password-generato
 import { TitleGeneratorDemo } from '@/components/tool-demos/title-generator-demo';
 import { SeoGeneratorDemo } from '@/components/tool-demos/seo-generator-demo';
 import { EmailRewriterDemo } from '@/components/tool-demos/email-rewriter-demo';
-import { YoutubeDownloaderDemo } from '@/components/tool-demos/youtube-downloader-demo';
-import { VideoToGifDemo } from '@/components/tool-demos/video-to-gif-demo';
-import { ToolDemo } from '@/components/tool-demo'; // Import ToolDemo component
+
 
 interface Feature {
   title: string;
@@ -135,8 +132,6 @@ function getToolDemo(toolId: string) {
       return <ParaphraserDemo />;
     case 'text-to-speech':
       return <TextToSpeechDemo />;
-    case 'audio-converter':
-      return <AudioConverterDemo />;
     case 'resume-improver':
       return <ResumeImproverDemo />;
     case 'password-generator':
@@ -157,10 +152,6 @@ function getToolDemo(toolId: string) {
       return <UnitConverterDemo />;
     case 'file-converter':
       return <FileConverterDemo />;
-    case 'youtube-downloader':
-      return <YoutubeDownloaderDemo />;
-    case 'video-to-gif':
-      return <VideoToGifDemo />;
     default:
       return null;
   }
@@ -230,7 +221,7 @@ export function ToolClient({ tool }: ToolClientProps) {
             </div>
           </div>
         )}
-        {customDemo || <ToolDemo toolName={tool.name} inputType={tool.inputType} placeholder={tool.demoPlaceholder} />}
+        {customDemo}
       </div>
       
       <ToolHowTo steps={tool.howTo} />
